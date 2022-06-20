@@ -77,7 +77,7 @@ IOU is an app that helps a group of people split a bill after a night out at a r
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://raw.githubusercontent.com/tinawen02/IOU/main/IOU%20Wireframe%20-2.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
