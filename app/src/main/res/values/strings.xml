@@ -4,4 +4,19 @@
     <string name="title_home">Home</string>
     <string name="title_bill">Bill</string>
     <string name="title_map">Map</string>
+    <string name="split_by_item">Split by Item</string>
+    <string name="add_a_bill">Add a Bill</string>
+    <string name="split_evenly">Split Evenly</string>
+    <string name="where_did_you_go">Where did you go?</string>
+    <string name="add_people_separated_by_commas">Add people (separated by commas)</string>
+    <string name="add_item_prices_separated_by_commas">Add item prices (separated by commas)</string>
+    <string name="final_bill_amount">Final Bill Amount</string>
+    <string name="next">Next</string>
+    <string name="username" />
+    <string name="username2">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_a_login">Don\'t have a login?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username3">Username</string>
 </resources>
