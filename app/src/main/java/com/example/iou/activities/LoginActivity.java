@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.iou.MainActivity2;
 import com.example.iou.R;
+import com.example.iou.models.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -62,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
     // Logs in a user using their username and password
     private void loginUser (String username, String password) {
+
+        /*
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
@@ -72,6 +75,12 @@ public class LoginActivity extends AppCompatActivity {
                 goMainActivity();
             }
         });
+         */
+        User newUser = new User(username, password);
+        MainActivity2.currentUser = newUser;
+
+        goMainActivity();
+        goMainActivity();
     }
 
     // Allows a user to register for an account

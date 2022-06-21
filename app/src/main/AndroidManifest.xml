@@ -39,12 +39,16 @@
         <activity
             android:name=".activities.SignupActivity"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity2"
-            android:exported="true">
+            android:exported="false" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-
-        </activity>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
     </application>
 
 </manifest>

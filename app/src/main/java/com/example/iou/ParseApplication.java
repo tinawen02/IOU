@@ -15,7 +15,7 @@ public class ParseApplication extends Application {
         super.onCreate();
 
         // Register parse models
-        //ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(User.class);
 
         // Use for troubleshooting -- remove this line for production
         Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
