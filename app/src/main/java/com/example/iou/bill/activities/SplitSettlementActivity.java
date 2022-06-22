@@ -1,5 +1,8 @@
 package com.example.iou.bill.activities;
 
+import static com.example.iou.IOUKeys.AMOUNTS_OWED_KEY;
+import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +22,9 @@ import java.util.Map;
 
 public class SplitSettlementActivity extends AppCompatActivity {
 
+    //private final String SPLIT_BILL_INFORMATION_KEY = "SPLIT_BILL_INFORMATION";
+    //private final String AMOUNTS_OWED_KEY = "AMOUNTS_OWED";
+
     private SplitBill splitBill;
     private Map<String, Double> amountsOwed;
 
@@ -26,14 +32,15 @@ public class SplitSettlementActivity extends AppCompatActivity {
     private TextView tvBillAmount;
     private TextView tvAmountsOwed;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_split_settlement);
 
         // Unwrap the information from the Dividing Items Activity
-        splitBill = Parcels.unwrap(getIntent().getParcelableExtra("Split Bill Information"));
-        amountsOwed = Parcels.unwrap(getIntent().getParcelableExtra("Amounts Owed"));
+        splitBill = Parcels.unwrap(getIntent().getParcelableExtra(SPLIT_BILL_INFORMATION_KEY));
+        amountsOwed = Parcels.unwrap(getIntent().getParcelableExtra(AMOUNTS_OWED_KEY));
 
 
         final Button btnSaveBillSplit = findViewById(R.id.btnSaveBillSplit);

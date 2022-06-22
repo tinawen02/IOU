@@ -68,12 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                 goMainActivity();
             }
         });
-        /*
-        // I used this when Parse was having issues
-        User user = new User(username, password);
-        MainActivity.currentUser = user;
-        goMainActivity();
-        */
     }
 
     // Allows a user to register for an account

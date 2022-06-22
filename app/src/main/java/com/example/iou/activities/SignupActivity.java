@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
@@ -69,7 +70,7 @@ public class SignupActivity extends AppCompatActivity {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
                     e.printStackTrace();
-                    Log.e("Signup Activity", "singup", e);
+                    Toast.makeText(SignupActivity.this, "Error with Signup. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -80,6 +81,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
+                    e.printStackTrace();
+                    Toast.makeText(SignupActivity.this, "Error with login. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // Brings the user to the Main Activity once they have signed in

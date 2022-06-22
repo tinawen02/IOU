@@ -1,5 +1,8 @@
 package com.example.iou.bill.activities;
 
+import static com.example.iou.IOUKeys.AMOUNTS_OWED_KEY;
+import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +29,9 @@ import java.util.Map;
 
 public class DividingItemsActivity extends AppCompatActivity {
 
+    //private final String SPLIT_BILL_INFORMATION_KEY = "SPLIT_BILL_INFORMATION";
+    //private final String AMOUNTS_OWED_KEY = "AMOUNTS_OWED";
+
     private SplitBill splitBill;
     private List<BillItem> items;
     private BillItemAdapter adapter;
@@ -40,7 +46,7 @@ public class DividingItemsActivity extends AppCompatActivity {
         final RecyclerView rvItems = findViewById(R.id.rvItems);
 
         // Unwrap the information from the Split Information Activity
-        splitBill = Parcels.unwrap(getIntent().getParcelableExtra("Split Bill Information"));
+        splitBill = Parcels.unwrap(getIntent().getParcelableExtra(SPLIT_BILL_INFORMATION_KEY));
 
         // Retrieve the prices the user entered
         items = new ArrayList<>();
@@ -76,6 +82,9 @@ public class DividingItemsActivity extends AppCompatActivity {
     private Map<String, Double> calculateSplitSettlement() {
         Map<String, Double> amountsOwed = new HashMap<String, Double>();
 
+        // TODO: commented out because causing a crash
+        /*
+
         // Iterate through each BillItem in items
         for (BillItem item : items) {
 
@@ -89,6 +98,8 @@ public class DividingItemsActivity extends AppCompatActivity {
             }
         }
 
+         */
+
         return amountsOwed;
     }
 
@@ -99,8 +110,8 @@ public class DividingItemsActivity extends AppCompatActivity {
 
         // Send information to the Split Settlement Activity
         Intent i = new Intent(DividingItemsActivity.this, SplitSettlementActivity.class);
-        i.putExtra("Split Bill Information", Parcels.wrap(splitBill));
-        i.putExtra("Amounts Owed", Parcels.wrap(amountsOwed));
+        i.putExtra(SPLIT_BILL_INFORMATION_KEY, Parcels.wrap(splitBill));
+        i.putExtra(AMOUNTS_OWED_KEY, Parcels.wrap(amountsOwed));
         startActivity(i);
     }
 }
