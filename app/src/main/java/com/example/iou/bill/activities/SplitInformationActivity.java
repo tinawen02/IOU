@@ -55,14 +55,11 @@ public class SplitInformationActivity extends AppCompatActivity {
         String[] itemsArray = etItemPrices.getText().toString().split(",");
         double billTotal = Double.parseDouble(etFinalBill.getText().toString());
 
-
-
         // Converting items to to a List of doubles
         List<Double> items = new ArrayList<>();
 
         for (int i = 0; i < itemsArray.length; i++) {
             items.add(Double.valueOf(itemsArray[i]));
-
         }
 
         // Converting people to a List of Strings

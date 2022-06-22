@@ -21,4 +21,7 @@
     <string name="username3">Username</string>
     <string name="logout">Logout</string>
     <string name="item_price">Item Price</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="total_bill_amount">Total Bill Amount</string>
+    <string name="save_bill">Save Bill</string>
 </resources>
