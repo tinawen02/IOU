@@ -1,23 +1,31 @@
 package com.example.iou.bill.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
 import com.example.iou.R;
 import com.example.iou.bill.adapters.BillItemAdapter;
+import com.example.iou.bill.models.BillItem;
 import com.example.iou.bill.models.SplitBill;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DividingItemsActivity extends AppCompatActivity {
 
     private SplitBill splitBill;
-    private double[] items;
+    private List<BillItem> items;
     private BillItemAdapter adapter;
 
     @Override
@@ -30,11 +38,25 @@ public class DividingItemsActivity extends AppCompatActivity {
         final RecyclerView rvItems = findViewById(R.id.rvItems);
 
         // Unwrap the information from the Split Information Activity
-        splitBill = (SplitBill) Parcels.unwrap(getIntent().getParcelableExtra("Split Bill Information"));
+        splitBill = Parcels.unwrap(getIntent().getParcelableExtra("Split Bill Information"));
 
-        // TODO: Initialize the array of items and adapter
-        // items = new double[];
+        // Initialize the array of items and adapter
+        items = new ArrayList<>();
 
+        for (Double dbl : splitBill.getItems()) {
+            BillItem bi = new BillItem();
+            bi.setPrice(dbl);
+            items.add(bi);
+        }
+
+        adapter = new BillItemAdapter(this, items, splitBill);
+
+        // Attach the adapter to the recyclerview to populate items
+        rvItems.setAdapter(adapter);
+
+        // Set layout manager to position the items
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvItems.setLayoutManager(linearLayoutManager);
 
         // Brings user to Split Settlement Activity
         btnDivideNext.setOnClickListener(new View.OnClickListener() {

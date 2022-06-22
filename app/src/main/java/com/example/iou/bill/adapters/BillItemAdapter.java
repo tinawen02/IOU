@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.iou.R;
 import com.example.iou.bill.models.BillItem;
+import com.example.iou.bill.models.SplitBill;
 
 import java.util.List;
 
@@ -18,17 +21,19 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
 
     private Context context;
     private List<BillItem> bills;
+    private SplitBill splitBill;
 
-    public BillItemAdapter(Context context, List<BillItem> bills) {
+    public BillItemAdapter(Context context, List<BillItem> bills, SplitBill splitBill) {
         this.context = context;
         this.bills = bills;
+        this.splitBill = splitBill;
     }
 
     // Inflate the layout for each bill item
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.bill_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_bill, parent, false);
         return new ViewHolder(view);
     }
 
@@ -47,11 +52,13 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView tvItemPrice;
+        private TextView tvItemPrice;
+        private LinearLayout llCheckboxesContainer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.tvItemPrice = itemView.findViewById(R.id.tvItemPrice);
+            this.llCheckboxesContainer = itemView.findViewById(R.id.llCheckboxesContainer);
         }
 
         @Override
@@ -62,7 +69,18 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
         public void bind(BillItem bill) {
 
             // Bind the bill item data to the view elements
-            // TODO:
+            tvItemPrice.setText(String.valueOf(bill.getPrice()));
+            llCheckboxesContainer.removeAllViewsInLayout();
+
+            //  Programmatically define the number of checkboxes in each recycler view
+            for (int i = 0; i < splitBill.getPeople().size(); i++) {
+                CheckBox checkbox = new CheckBox(context);
+                checkbox.setText(splitBill.getPeople().get(i));
+                checkbox.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                llCheckboxesContainer.addView(checkbox);
+            }
         }
     }
 

@@ -13,7 +13,10 @@ import com.example.iou.bill.models.SplitBill;
 
 import org.parceler.Parcels;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SplitInformationActivity extends AppCompatActivity {
 
@@ -48,12 +51,26 @@ public class SplitInformationActivity extends AppCompatActivity {
     private void toDividingItems() {
         // Set the views
         String location = etLocation.getText().toString();
-        String[] people = etPeople.getText().toString().split(",");
-        String[] itemsString = etItemPrices.getText().toString().split(",");
+        String[] peopleArray = etPeople.getText().toString().replace(" ", "").split(",");
+        String[] itemsArray = etItemPrices.getText().toString().split(",");
         double billTotal = Double.parseDouble(etFinalBill.getText().toString());
 
-        // Converting items to doubles
-        double[] items = Arrays.stream(itemsString).mapToDouble(Double::parseDouble).toArray();
+
+
+        // Converting items to to a List of doubles
+        List<Double> items = new ArrayList<>();
+
+        for (int i = 0; i < itemsArray.length; i++) {
+            items.add(Double.valueOf(itemsArray[i]));
+
+        }
+
+        // Converting people to a List of Strings
+        List<String> people = new ArrayList<>();
+
+        for (int i = 0; i < peopleArray.length; i++) {
+            people.add(peopleArray[i]);
+        }
 
         // Create a new splitBill;
         SplitBill splitBill = new SplitBill(location, people, items, billTotal);

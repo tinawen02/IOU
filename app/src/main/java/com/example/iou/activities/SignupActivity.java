@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import com.example.iou.MainActivity;
 import com.example.iou.R;
 import com.example.iou.models.User;
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -47,9 +49,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void registerUser() {
         // Create the ParseUser
-        ParseUser user = new ParseUser();
-
-        //ParseUser user = (ParseUser) ParseObject.create("User");
+        User user = new User();
 
         // Set core properties
         String username = etUsernameSignup.getText().toString();
@@ -69,6 +69,7 @@ public class SignupActivity extends AppCompatActivity {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
                     e.printStackTrace();
+                    Log.e("Signup Activity", "singup", e);
                 }
             }
         });

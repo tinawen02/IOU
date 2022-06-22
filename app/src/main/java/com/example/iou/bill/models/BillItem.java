@@ -1,9 +1,11 @@
 package com.example.iou.bill.models;
 
+import java.util.List;
+
 public class BillItem {
 
     private double price;
-    private String[] people;
+    private List<String> people;
 
     public double getPrice() {
         return price;
@@ -13,11 +15,11 @@ public class BillItem {
         this.price = price;
     }
 
-    public String[] getPeople() {
+    public List<String> getPeople() {
         return people;
     }
 
-    public void setPeople(String[] people) {
+    public void setPeople(List<String> people) {
         this.people = people;
     }
 }

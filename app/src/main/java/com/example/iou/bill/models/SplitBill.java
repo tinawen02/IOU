@@ -1,15 +1,20 @@
 package com.example.iou.bill.models;
 
 
+import com.parse.ParseUser;
+
 import org.parceler.Parcel;
 
 import java.sql.Array;
+import java.util.List;
+
 @Parcel
-public class SplitBill {
+// TODO: extend parseUser
+public class SplitBill{
 
     private String restaurantName;
-    private String[] people;
-    private double[] items;
+    private List<String> people;
+    private List<Double> items;
     private double billTotal;
     private String currencyCode;
 
@@ -19,7 +24,7 @@ public class SplitBill {
     }
 
     // Constructor without the currency code
-    public SplitBill(String restaurantName, String[] people, double[] items, double billTotal) {
+    public SplitBill(String restaurantName, List<String> people, List<Double> items, double billTotal) {
         this.restaurantName = restaurantName;
         this.people = people;
         this.items = items;
@@ -27,7 +32,7 @@ public class SplitBill {
     }
 
     // Constructor with the currency code
-    public SplitBill(String restaurantName, String[] people, double[] items, double billTotal, String currencyCode) {
+    public SplitBill(String restaurantName, List<String> people, List<Double> items, double billTotal, String currencyCode) {
         this.restaurantName = restaurantName;
         this.people = people;
         this.items = items;
@@ -44,19 +49,19 @@ public class SplitBill {
         this.restaurantName = restaurantName;
     }
 
-    public String[] getPeople() {
+    public List<String> getPeople() {
         return people;
     }
 
-    public void setPeople(String[] people) {
+    public void setPeople(List<String> people) {
         this.people = people;
     }
 
-    public double[] getItems() {
+    public List<Double> getItems() {
         return items;
     }
 
-    public void setItems(double[] items) {
+    public void setItems(List<Double> items) {
         this.items = items;
     }
 
