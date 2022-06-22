@@ -18,13 +18,13 @@
         android:theme="@style/Theme.IOU"
         tools:targetApi="31">
         <activity
-            android:name=".activities.SplitSettlementActivity"
+            android:name=".bill.activities.SplitSettlementActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.DividingItemsActivity"
+            android:name=".bill.activities.DividingItemsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SplitInformationActivity"
+            android:name=".bill.activities.SplitInformationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
@@ -39,12 +39,16 @@
         <activity
             android:name=".activities.SignupActivity"
             android:exported="false" />
+
         <activity
-            android:name=".MainActivity2"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="false" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-
-        </activity>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
     </application>
 
 </manifest>

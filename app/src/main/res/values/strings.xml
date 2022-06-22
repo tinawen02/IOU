@@ -19,4 +19,6 @@
     <string name="don_t_have_a_login">Don\'t have a login?</string>
     <string name="sign_up">Sign Up</string>
     <string name="username3">Username</string>
+    <string name="logout">Logout</string>
+    <string name="item_price">Item Price</string>
 </resources>

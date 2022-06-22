@@ -2,6 +2,8 @@ package com.example.iou;
 
 import android.os.Bundle;
 
+import com.example.iou.databinding.ActivityMainBinding;
+import com.example.iou.models.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,17 +12,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.iou.databinding.ActivityMain2Binding;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity2 extends AppCompatActivity {
-
-    private ActivityMain2Binding binding;
+    private ActivityMainBinding binding;
+    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMain2Binding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -32,6 +33,9 @@ public class MainActivity2 extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // Defaults to the home fragment
+        navView.setSelectedItemId(R.id.navigation_home);
     }
 
 }

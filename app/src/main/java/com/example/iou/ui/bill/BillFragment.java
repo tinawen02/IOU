@@ -14,14 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.iou.R;
-import com.example.iou.activities.SplitInformationActivity;
+import com.example.iou.bill.activities.SplitInformationActivity;
 import com.example.iou.databinding.FragmentBillBinding;
 
 public class BillFragment extends Fragment {
-
-    private static final String TAG = "BillFragment";
-    private Button btnSplitItem;
-    private Button btnSplitEven;
 
     private FragmentBillBinding binding;
 
@@ -45,25 +41,23 @@ public class BillFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Finding the views by Id
-        btnSplitItem = view.findViewById(R.id.btnSplitItem);
-        btnSplitEven = view.findViewById(R.id.btnSplitEven);
+        final Button btnSplitItem = view.findViewById(R.id.btnSplitItem);
+        final Button btnSplitEven = view.findViewById(R.id.btnSplitEven);
 
         // Brings user to the Split Information Activity
-        splitItem(btnSplitItem);
-    }
-
-    // Brings user to the Split Information Activity
-    private void splitItem(Button btnSplitItem) {
         btnSplitItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // Send information to the Split Information Activity
-                Intent i = new Intent(getContext(), SplitInformationActivity.class);
-                startActivity(i);
+                toSplitInformation();
             }
         });
+    }
+
+    // Brings user to the Split Information Activity
+    private void toSplitInformation() {
+        // Send information to the Split Information Activity
+        Intent i = new Intent(getContext(), SplitInformationActivity.class);
+        startActivity(i);
     }
 
     @Override
