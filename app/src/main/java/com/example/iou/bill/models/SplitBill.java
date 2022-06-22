@@ -1,8 +1,10 @@
-package com.example.iou.models;
+package com.example.iou.bill.models;
 
+
+import org.parceler.Parcel;
 
 import java.sql.Array;
-
+@Parcel
 public class SplitBill {
 
     private String restaurantName;
@@ -10,6 +12,29 @@ public class SplitBill {
     private double[] items;
     private double billTotal;
     private String currencyCode;
+
+    // Empty constructor for parcels
+    public SplitBill() {
+
+    }
+
+    // Constructor without the currency code
+    public SplitBill(String restaurantName, String[] people, double[] items, double billTotal) {
+        this.restaurantName = restaurantName;
+        this.people = people;
+        this.items = items;
+        this.billTotal = billTotal;
+    }
+
+    // Constructor with the currency code
+    public SplitBill(String restaurantName, String[] people, double[] items, double billTotal, String currencyCode) {
+        this.restaurantName = restaurantName;
+        this.people = people;
+        this.items = items;
+        this.billTotal = billTotal;
+        this.currencyCode = currencyCode;
+    }
+
 
     public String getRestaurantName() {
         return restaurantName;

@@ -11,9 +11,8 @@ public class User extends ParseUser {
     private String username;
     private String password;
 
-
+    // Empty constructor
     public User() {
-
     }
 
     public User(String username, String password) {

@@ -4,23 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.iou.MainActivity2;
+import com.example.iou.MainActivity;
 import com.example.iou.R;
+import com.example.iou.models.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class SignupActivity extends AppCompatActivity {
 
-    public static final String TAG = "SignupActivity";
     private EditText etUsernameSignup;
     private EditText etPasswordSignup;
     private Button btnSignupSignup;
@@ -29,11 +27,16 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
         etUsernameSignup = findViewById(R.id.etUsernameSignup);
         etPasswordSignup = findViewById(R.id.etPasswordSignup);
         btnSignupSignup = findViewById(R.id.btnSignupSignup);
 
+        // Sign up a user using the username and password
+        signupUser(btnSignupSignup);
+    }
 
+    private void signupUser(Button btnSignupSignup) {
         btnSignupSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,13 +48,17 @@ public class SignupActivity extends AppCompatActivity {
     private void registerUser() {
         // Create the ParseUser
         ParseUser user = new ParseUser();
-        // Set core properties
 
+        //ParseUser user = (ParseUser) ParseObject.create("User");
+
+        // Set core properties
         String username = etUsernameSignup.getText().toString();
         String password = etPasswordSignup.getText().toString();
 
+        // Set the views
         user.setUsername(username);
         user.setPassword(password);
+
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
@@ -61,6 +68,7 @@ public class SignupActivity extends AppCompatActivity {
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
+                    e.printStackTrace();
                 }
             }
         });
@@ -73,14 +81,14 @@ public class SignupActivity extends AppCompatActivity {
                 if (e != null) {
                     return;
                 }
-                // Navigate to the main activity if the user has signed in properly
+                // Brings the user to the Main Activity once they have signed in
                 goMainActivity();
             }
         });
     }
 
     private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity2.class);
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }

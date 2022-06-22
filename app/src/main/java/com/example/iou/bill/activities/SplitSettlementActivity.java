@@ -1,4 +1,4 @@
-package com.example.iou.activities;
+package com.example.iou.bill.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
