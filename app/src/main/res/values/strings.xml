@@ -24,4 +24,5 @@
     <string name="restaurant_name">Restaurant Name</string>
     <string name="total_bill_amount">Total Bill Amount</string>
     <string name="save_bill">Save Bill</string>
+    <string name="IOU">IOU</string>
 </resources>

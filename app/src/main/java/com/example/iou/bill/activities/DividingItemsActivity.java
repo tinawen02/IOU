@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.example.iou.bill.models.SplitBill;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +55,9 @@ public class DividingItemsActivity extends AppCompatActivity {
         for (Double itemPrice : splitBill.getItems()) {
             BillItem billItem = new BillItem();
             billItem.setPrice(itemPrice);
+
+            // Populate each item with the people who dined
+            billItem.setPeople(splitBill.getPeople());
             items.add(billItem);
         }
 
@@ -74,31 +79,39 @@ public class DividingItemsActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: calculate totals for each person
-    // Create a dict: keys are names, values are amounts owed
-    // Get the values from the Bill Item
-    // For loop iterating through items to get each billItem
+    // For now, each person is a number - I can convert them later
 
     private Map<String, Double> calculateSplitSettlement() {
-        Map<String, Double> amountsOwed = new HashMap<String, Double>();
 
-        // TODO: commented out because causing a crash
-        /*
+        Map<String, Double> amountsOwed = new HashMap<String, Double>();
+        Map<Integer, Double> amountsOwedInt = new HashMap<Integer, Double>();
 
         // Iterate through each BillItem in items
         for (BillItem item : items) {
 
-            // Retrieves the checkboxes for each item price
-            List<Boolean> itemChecks = item.getChecks();
+            // Retrieve the list of checks
+            SparseBooleanArray checkedList = item.getChecksList();
 
-            for (Boolean isChecked : itemChecks) {
-                // not too sure about the logic for getting the checks
+            // Iterate through the checkmarks of each item
+            for (int i = 0; i < checkedList.size(); i++) {
 
-                //TODO: look at implementing checkboxes
+                // Check to see if the index of checkedList is true (said person should pay)
+                if (checkedList.valueAt(i)) {
+                    // Check to see if a key already exists
+                    if (!amountsOwedInt.containsKey(checkedList.keyAt(i))) {
+                        // If key does not exist, set the key and value
+                        amountsOwedInt.put(i, item.getPrice());
+                    } else {
+                        // Saves the old value to oldVal
+                        Double oldVal = amountsOwedInt.get(i);
+
+                        // If key does exist, overwrite and update to the new value
+                        amountsOwedInt.replace(i, oldVal + item.getPrice());
+                    }
+
+                }
             }
         }
-
-         */
 
         return amountsOwed;
     }

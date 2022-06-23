@@ -1,12 +1,15 @@
 package com.example.iou.bill.models;
 
+import android.util.SparseBooleanArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class BillItem {
+public class BillItem extends SplitBill {
 
     private double price;
-    private List<String> people;
-    private List<Boolean> checkedList;
+    private List<String> people = new ArrayList<>();
+    private SparseBooleanArray checkedList = new SparseBooleanArray();
 
     public double getPrice() {
         return price;
@@ -24,15 +27,19 @@ public class BillItem {
         this.people = people;
     }
 
-    public List<Boolean> getChecks() {
+    public Boolean getChecks(int index) {
+        return checkedList.get(index);
+    }
+
+    public SparseBooleanArray getChecksList() {
         return checkedList;
     }
 
-    public void setChecks(List<Boolean> checkedList) {
-        this.checkedList = checkedList;
+    public void toggleCheckbox(int index, boolean isChecked) {
+
+        // TODO: should I be using .put or .append()
+        checkedList.append(index, isChecked);
+        //checkedList.put(index, isChecked);
     }
 
-    public void toggleCheckbox(int index, boolean isChecked) {
-        checkedList.set(index, isChecked);
-    }
 }

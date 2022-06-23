@@ -15,6 +15,7 @@ import com.example.iou.R;
 import com.example.iou.bill.models.BillItem;
 import com.example.iou.bill.models.SplitBill;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHolder> {
@@ -74,6 +75,7 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
 
             // Programmatically define the number of checkboxes in each recycler view
             for (int i = 0; i < splitBill.getPeople().size(); i++) {
+
                 CheckBox checkbox = new CheckBox(context);
                 checkbox.setText(splitBill.getPeople().get(i));
                 checkbox.setLayoutParams(new LinearLayout.LayoutParams(
@@ -85,7 +87,12 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
                 checkbox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        bill.toggleCheckbox(finalI, checkbox.isChecked());
+
+                        // Set the UI to display the check or uncheck
+                        checkbox.setChecked(!bill.getChecks(finalI));
+
+                        // Update the BillItem bill
+                        bill.toggleCheckbox(finalI, !bill.getChecks(finalI));
                     }
                 });
 
