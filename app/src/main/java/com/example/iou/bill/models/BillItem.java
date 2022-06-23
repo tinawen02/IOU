@@ -36,10 +36,7 @@ public class BillItem extends SplitBill {
     }
 
     public void toggleCheckbox(int index, boolean isChecked) {
-
-        // TODO: should I be using .put or .append()
-        checkedList.append(index, isChecked);
-        //checkedList.put(index, isChecked);
+        checkedList.put(index, isChecked);
     }
 
 }

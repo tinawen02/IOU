@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.iou.MainActivity;
 import com.example.iou.R;
 import com.example.iou.bill.models.SplitBill;
 import com.example.iou.home.HomeActivity;
@@ -66,8 +67,10 @@ public class SplitSettlementActivity extends AppCompatActivity {
     }
 
     // Brings a user to the Home Activity when a button is clicked
+
+    // TODO: look into activity to fragment
     private void toHomeActivity() {
-        Intent i = new Intent(SplitSettlementActivity.this, HomeActivity.class);
+        Intent i = new Intent(SplitSettlementActivity.this, MainActivity.class);
         startActivity(i);
     }
 }

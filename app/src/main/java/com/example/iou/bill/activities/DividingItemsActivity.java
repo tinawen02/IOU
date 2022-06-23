@@ -79,12 +79,10 @@ public class DividingItemsActivity extends AppCompatActivity {
         });
     }
 
-    // For now, each person is a number - I can convert them later
 
     private Map<String, Double> calculateSplitSettlement() {
 
         Map<String, Double> amountsOwed = new HashMap<String, Double>();
-        Map<Integer, Double> amountsOwedInt = new HashMap<Integer, Double>();
 
         // Iterate through each BillItem in items
         for (BillItem item : items) {
@@ -94,21 +92,21 @@ public class DividingItemsActivity extends AppCompatActivity {
 
             // Iterate through the checkmarks of each item
             for (int i = 0; i < checkedList.size(); i++) {
-
+            //for (int i = 0; i < item.getPeople().size(); i++) {
                 // Check to see if the index of checkedList is true (said person should pay)
                 if (checkedList.valueAt(i)) {
+                    Integer keyVal = checkedList.keyAt(i);
+                    String nameKey = item.getPeople().get(keyVal);
                     // Check to see if a key already exists
-                    if (!amountsOwedInt.containsKey(checkedList.keyAt(i))) {
+                    if (!amountsOwed.containsKey(nameKey)) {
                         // If key does not exist, set the key and value
-                        amountsOwedInt.put(i, item.getPrice());
+                        amountsOwed.put(nameKey, item.getPrice());
                     } else {
                         // Saves the old value to oldVal
-                        Double oldVal = amountsOwedInt.get(i);
-
+                        Double oldVal = amountsOwed.get(nameKey);
                         // If key does exist, overwrite and update to the new value
-                        amountsOwedInt.replace(i, oldVal + item.getPrice());
+                        amountsOwed.replace(nameKey, oldVal + item.getPrice());
                     }
-
                 }
             }
         }
