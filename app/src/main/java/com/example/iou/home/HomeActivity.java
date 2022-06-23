@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.iou.R;
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override

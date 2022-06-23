@@ -1,5 +1,7 @@
 package com.example.iou.bill.activities;
 
+import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,9 +18,12 @@ import org.parceler.Parcels;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SplitInformationActivity extends AppCompatActivity {
+
+    //private final String SPLIT_BILL_INFORMATION_KEY = "SPLIT_BILL_INFORMATION";
 
     private EditText etLocation;
     private EditText etPeople;
@@ -55,29 +60,24 @@ public class SplitInformationActivity extends AppCompatActivity {
         String[] itemsArray = etItemPrices.getText().toString().split(",");
         double billTotal = Double.parseDouble(etFinalBill.getText().toString());
 
-
-
         // Converting items to to a List of doubles
         List<Double> items = new ArrayList<>();
 
         for (int i = 0; i < itemsArray.length; i++) {
             items.add(Double.valueOf(itemsArray[i]));
-
         }
+
 
         // Converting people to a List of Strings
         List<String> people = new ArrayList<>();
-
-        for (int i = 0; i < peopleArray.length; i++) {
-            people.add(peopleArray[i]);
-        }
+        Collections.addAll(people, peopleArray);
 
         // Create a new splitBill;
         SplitBill splitBill = new SplitBill(location, people, items, billTotal);
 
         // Send information to the Dividing Item Activity
         Intent i = new Intent(SplitInformationActivity.this, DividingItemsActivity.class);
-        i.putExtra("Split Bill Information", Parcels.wrap(splitBill));
+        i.putExtra(SPLIT_BILL_INFORMATION_KEY, Parcels.wrap(splitBill));
         startActivity(i);
     }
 }

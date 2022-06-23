@@ -1,5 +1,8 @@
 package com.example.iou.bill.activities;
 
+import static com.example.iou.IOUKeys.AMOUNTS_OWED_KEY;
+import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +23,14 @@ import com.example.iou.bill.models.SplitBill;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DividingItemsActivity extends AppCompatActivity {
+
+    //private final String SPLIT_BILL_INFORMATION_KEY = "SPLIT_BILL_INFORMATION";
+    //private final String AMOUNTS_OWED_KEY = "AMOUNTS_OWED";
 
     private SplitBill splitBill;
     private List<BillItem> items;
@@ -38,15 +46,14 @@ public class DividingItemsActivity extends AppCompatActivity {
         final RecyclerView rvItems = findViewById(R.id.rvItems);
 
         // Unwrap the information from the Split Information Activity
-        splitBill = Parcels.unwrap(getIntent().getParcelableExtra("Split Bill Information"));
+        splitBill = Parcels.unwrap(getIntent().getParcelableExtra(SPLIT_BILL_INFORMATION_KEY));
 
-        // Initialize the array of items and adapter
+        // Retrieve the prices the user entered
         items = new ArrayList<>();
-
-        for (Double dbl : splitBill.getItems()) {
-            BillItem bi = new BillItem();
-            bi.setPrice(dbl);
-            items.add(bi);
+        for (Double itemPrice : splitBill.getItems()) {
+            BillItem billItem = new BillItem();
+            billItem.setPrice(itemPrice);
+            items.add(billItem);
         }
 
         adapter = new BillItemAdapter(this, items, splitBill);
@@ -67,10 +74,44 @@ public class DividingItemsActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: calculate totals for each person
+    // Create a dict: keys are names, values are amounts owed
+    // Get the values from the Bill Item
+    // For loop iterating through items to get each billItem
+
+    private Map<String, Double> calculateSplitSettlement() {
+        Map<String, Double> amountsOwed = new HashMap<String, Double>();
+
+        // TODO: commented out because causing a crash
+        /*
+
+        // Iterate through each BillItem in items
+        for (BillItem item : items) {
+
+            // Retrieves the checkboxes for each item price
+            List<Boolean> itemChecks = item.getChecks();
+
+            for (Boolean isChecked : itemChecks) {
+                // not too sure about the logic for getting the checks
+
+                //TODO: look at implementing checkboxes
+            }
+        }
+
+         */
+
+        return amountsOwed;
+    }
+
     // Brings user to the Split Settlement Activity
     private void toSplitSettlement() {
+
+        Map<String, Double> amountsOwed = calculateSplitSettlement();
+
         // Send information to the Split Settlement Activity
         Intent i = new Intent(DividingItemsActivity.this, SplitSettlementActivity.class);
+        i.putExtra(SPLIT_BILL_INFORMATION_KEY, Parcels.wrap(splitBill));
+        i.putExtra(AMOUNTS_OWED_KEY, Parcels.wrap(amountsOwed));
         startActivity(i);
     }
 }

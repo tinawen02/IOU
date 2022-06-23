@@ -72,13 +72,23 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
             tvItemPrice.setText(String.valueOf(bill.getPrice()));
             llCheckboxesContainer.removeAllViewsInLayout();
 
-            //  Programmatically define the number of checkboxes in each recycler view
+            // Programmatically define the number of checkboxes in each recycler view
             for (int i = 0; i < splitBill.getPeople().size(); i++) {
                 CheckBox checkbox = new CheckBox(context);
                 checkbox.setText(splitBill.getPeople().get(i));
                 checkbox.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                // Checks to see if a checkbox was clicked or not
+                int finalI = i;
+                checkbox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bill.toggleCheckbox(finalI, checkbox.isChecked());
+                    }
+                });
+
                 llCheckboxesContainer.addView(checkbox);
             }
         }
