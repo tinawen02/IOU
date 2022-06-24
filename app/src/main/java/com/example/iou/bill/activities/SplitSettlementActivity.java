@@ -14,17 +14,15 @@ import android.widget.TextView;
 import com.example.iou.MainActivity;
 import com.example.iou.R;
 import com.example.iou.bill.models.SplitBill;
-import com.example.iou.home.HomeActivity;
-import com.example.iou.ui.home.HomeFragment;
 
 import org.parceler.Parcels;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class SplitSettlementActivity extends AppCompatActivity {
-
-    //private final String SPLIT_BILL_INFORMATION_KEY = "SPLIT_BILL_INFORMATION";
-    //private final String AMOUNTS_OWED_KEY = "AMOUNTS_OWED";
 
     private SplitBill splitBill;
     private Map<String, Double> amountsOwed;
@@ -53,23 +51,33 @@ public class SplitSettlementActivity extends AppCompatActivity {
         tvLocation.setText(splitBill.getRestaurantName());
         tvBillAmount.setText(String.valueOf(splitBill.getBillTotal()));
 
-        // Get the names of the people and the amounts they each owe
+        // Get the names of the people
+        Set keys = amountsOwed.keySet();
 
-        tvAmountsOwed.setText(splitBill.getPeople().toString().replace("[", "").replace("]", "") );
+        // Build the string of names of people and amounts each person owes
+        StringBuilder str = new StringBuilder();
 
-        // Bring user to the Home Activity
+        for (Iterator i = keys.iterator(); i.hasNext(); ) {
+            String name = (String) i.next();
+            Double value = amountsOwed.get(name);
+            str.append(name + " owes " + value + "\n");
+        }
+
+        // Set the names of people and amounts each person owes
+        tvAmountsOwed.setText(str);
+
+        // Bring user to the Home Fragment
         btnSaveBillSplit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toHomeActivity();
+                toHomeFragment();
             }
         });
     }
 
-    // Brings a user to the Home Activity when a button is clicked
-
+    // Brings a user to the Home Fragment when a button is clicked
     // TODO: look into activity to fragment
-    private void toHomeActivity() {
+    private void toHomeFragment() {
         Intent i = new Intent(SplitSettlementActivity.this, MainActivity.class);
         startActivity(i);
     }

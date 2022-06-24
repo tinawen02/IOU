@@ -28,9 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".bill.activities.SplitSettlementActivity"
             android:exported="false" />
         <activity

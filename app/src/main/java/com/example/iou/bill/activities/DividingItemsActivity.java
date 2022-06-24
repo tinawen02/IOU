@@ -31,9 +31,6 @@ import java.util.Map;
 
 public class DividingItemsActivity extends AppCompatActivity {
 
-    //private final String SPLIT_BILL_INFORMATION_KEY = "SPLIT_BILL_INFORMATION";
-    //private final String AMOUNTS_OWED_KEY = "AMOUNTS_OWED";
-
     private SplitBill splitBill;
     private List<BillItem> items;
     private BillItemAdapter adapter;
