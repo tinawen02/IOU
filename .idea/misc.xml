@@ -6,6 +6,8 @@
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1335" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.196" />
         <entry key="app/src/main/res/layout/activity_dividing_items.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_even_information.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_even_settlement.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2884963768115942" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.125" />
