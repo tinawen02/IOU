@@ -23,8 +23,6 @@ import java.util.List;
 
 public class SplitInformationActivity extends AppCompatActivity {
 
-    //private final String SPLIT_BILL_INFORMATION_KEY = "SPLIT_BILL_INFORMATION";
-
     private EditText etLocation;
     private EditText etPeople;
     private EditText etItemPrices;
