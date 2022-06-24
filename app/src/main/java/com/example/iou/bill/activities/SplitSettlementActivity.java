@@ -56,7 +56,6 @@ public class SplitSettlementActivity extends AppCompatActivity {
 
         // Build the string of names of people and amounts each person owes
         StringBuilder str = new StringBuilder();
-
         for (Iterator i = keys.iterator(); i.hasNext(); ) {
             String name = (String) i.next();
             Double value = amountsOwed.get(name);
