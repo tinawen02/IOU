@@ -1,5 +1,7 @@
 package com.example.iou.ui.home;
 
+import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.example.iou.R;
 import com.example.iou.activities.LoginActivity;
 import com.example.iou.bill.activities.SplitSettlementActivity;
 import com.example.iou.bill.models.BillParse;
+import com.example.iou.bill.models.SplitBill;
 import com.example.iou.databinding.FragmentHomeBinding;
 import com.example.iou.home.adapters.FeedAdapter;
 import com.parse.FindCallback;
@@ -29,6 +32,9 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +66,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // TODO: unwrap the splitBill parcel
 
         btnLogout = view.findViewById(R.id.btnLogout);
         rvBills = view.findViewById(R.id.rvBills);

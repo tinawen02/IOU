@@ -16,6 +16,7 @@ import com.example.iou.home.activities.BillDetailsActivity;
 
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             tvBillAmountFeed.setText(String.valueOf(bill.getFinalBill()));
             tvAmountsOwedFeed.setText(bill.getAmountsOwed());
 
-            // Debugging location: poor structure but only way it works
+            // TODO: click on the background possibly?
             tvLocationFeed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

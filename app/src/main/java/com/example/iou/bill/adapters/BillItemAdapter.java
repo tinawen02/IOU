@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.iou.R;
@@ -81,6 +82,9 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
                 checkbox.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                // Set the font
+                checkbox.setTypeface(ResourcesCompat.getFont(context, R.font.lemon_milk_light));
 
                 // Checks to see if a checkbox was clicked or not
                 int finalI = i;
