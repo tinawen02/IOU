@@ -2,6 +2,7 @@ package com.example.iou.bill.activities;
 
 import static com.example.iou.IOUKeys.AMOUNTS_OWED_KEY;
 import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
+import static com.example.iou.IOUKeys.USER_BILL_KEY;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,14 +11,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
+import com.example.iou.bill.models.BillParse;
 import com.example.iou.bill.models.SplitBill;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -31,6 +36,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
     private TextView tvBillAmount;
     private TextView tvAmountsOwed;
 
+    private BillParse bill = new BillParse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,6 @@ public class SplitSettlementActivity extends AppCompatActivity {
         // Unwrap the information from the Dividing Items Activity
         splitBill = Parcels.unwrap(getIntent().getParcelableExtra(SPLIT_BILL_INFORMATION_KEY));
         amountsOwed = Parcels.unwrap(getIntent().getParcelableExtra(AMOUNTS_OWED_KEY));
-
 
         final Button btnSaveBillSplit = findViewById(R.id.btnSaveBillSplit);
         tvLocation = findViewById(R.id.tvLocation);
@@ -65,6 +70,21 @@ public class SplitSettlementActivity extends AppCompatActivity {
         // Set the names of people and amounts each person owes
         tvAmountsOwed.setText(str);
 
+        // Update BillParse information to store in Parse
+        bill.setLocation(splitBill.getRestaurantName());
+        bill.setUser(ParseUser.getCurrentUser());
+        bill.setFinalBill(splitBill.getBillTotal());
+        bill.setAmountsOwed(str.toString());
+
+        bill.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Toast.makeText(SplitSettlementActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         // Bring user to the Home Fragment
         btnSaveBillSplit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +97,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
     // Brings a user to the Home Fragment when a button is clicked
     private void toHomeFragment() {
         Intent i = new Intent(SplitSettlementActivity.this, MainActivity.class);
+        i.putExtra(USER_BILL_KEY, Parcels.wrap(bill));
         startActivity(i);
     }
 }

@@ -9,7 +9,6 @@ import java.sql.Array;
 import java.util.List;
 
 @Parcel
-// TODO: extend parseUser
 public class SplitBill{
 
     private String restaurantName;

@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1335" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.196" />
+        <entry key="app/src/main/res/layout/activity_bill_details.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/activity_dividing_items.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_even_information.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_even_settlement.xml" value="0.19610507246376813" />
@@ -18,6 +19,8 @@
         <entry key="app/src/main/res/layout/fragment_bill.xml" value="0.21964111328125002" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.11730072463768115" />
+        <entry key="app/src/main/res/layout/item_bill.xml" value="0.178125" />
+        <entry key="app/src/main/res/layout/item_bill_feed.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.37604166666666666" />
       </map>
     </option>

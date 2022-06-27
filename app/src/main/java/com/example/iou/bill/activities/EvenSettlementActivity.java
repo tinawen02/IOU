@@ -1,6 +1,5 @@
 package com.example.iou.bill.activities;
 
-import static com.example.iou.IOUKeys.AMOUNTS_OWED_KEY;
 import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,25 +9,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
+import com.example.iou.bill.models.BillParse;
 import com.example.iou.bill.models.SplitBill;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public class EvenSettlementActivity extends AppCompatActivity {
 
     private SplitBill splitBill;
-    private Map<String, Double> amountsOwed;
 
     private TextView tvLocationEven;
     private TextView tvBillAmountEven;
     private TextView tvAmountsOwedEven;
+
+    private BillParse bill = new BillParse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
 
         // Set the views with specific information regarding the transaction
         tvLocationEven.setText(splitBill.getRestaurantName());
-        tvBillAmountEven.setText("Total Bill: " + String.valueOf(splitBill.getBillTotal()));
+        tvBillAmountEven.setText("Total BillParse: " + String.valueOf(splitBill.getBillTotal()));
 
         // Calculate the amounts each individual owes
         int numPeople = splitBill.getPeople().size();
@@ -60,6 +63,20 @@ public class EvenSettlementActivity extends AppCompatActivity {
 
         // Set the names of people and amounts each person owes
         tvAmountsOwedEven.setText(str);
+
+        bill.setLocation(splitBill.getRestaurantName());
+        bill.setUser(ParseUser.getCurrentUser());
+        bill.setFinalBill(splitBill.getBillTotal());
+        bill.setAmountsOwed(str.toString());
+
+        bill.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Toast.makeText(EvenSettlementActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         // Bring user to the Home Fragment
         btnSaveBillEven.setOnClickListener(new View.OnClickListener() {

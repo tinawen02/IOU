@@ -18,6 +18,9 @@
         android:theme="@style/Theme.IOU"
         tools:targetApi="31">
         <activity
+            android:name=".home.activities.BillDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".bill.activities.EvenInformationActivity"
             android:exported="false" />
         <activity
