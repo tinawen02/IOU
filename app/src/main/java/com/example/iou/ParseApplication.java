@@ -2,10 +2,10 @@ package com.example.iou;
 
 import android.app.Application;
 
+import com.example.iou.bill.models.BillParse;
 import com.example.iou.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,6 +17,7 @@ public class ParseApplication extends Application {
 
         // Register parse models
         ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(BillParse.class);
 
         // Use for troubleshooting -- remove this line for production
         Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);

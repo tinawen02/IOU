@@ -9,7 +9,6 @@ import java.sql.Array;
 import java.util.List;
 
 @Parcel
-// TODO: extend parseUser
 public class SplitBill{
 
     private String restaurantName;
@@ -28,6 +27,13 @@ public class SplitBill{
         this.restaurantName = restaurantName;
         this.people = people;
         this.items = items;
+        this.billTotal = billTotal;
+    }
+
+    // Constructor for even split
+    public SplitBill(String restaurantName, List<String> people, double billTotal) {
+        this.restaurantName = restaurantName;
+        this.people = people;
         this.billTotal = billTotal;
     }
 

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.iou.R;
+import com.example.iou.bill.activities.EvenInformationActivity;
 import com.example.iou.bill.activities.SplitInformationActivity;
 import com.example.iou.databinding.FragmentBillBinding;
 
@@ -51,6 +52,21 @@ public class BillFragment extends Fragment {
                 toSplitInformation();
             }
         });
+
+        // Brings user to the Even Information Activity
+        btnSplitEven.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toEvenInformation();
+            }
+        });
+    }
+
+    // Brings user to the Even Information Activity
+    private void toEvenInformation() {
+        // Send information to the Even Information Activity
+        Intent i = new Intent(getContext(), EvenInformationActivity.class);
+        startActivity(i);
     }
 
     // Brings user to the Split Information Activity
