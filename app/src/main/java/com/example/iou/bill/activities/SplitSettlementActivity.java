@@ -23,6 +23,7 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +38,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
     private TextView tvAmountsOwed;
 
     private BillParse bill = new BillParse();
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
         StringBuilder str = new StringBuilder();
         for (Iterator i = keys.iterator(); i.hasNext(); ) {
             String name = (String) i.next();
-            Double value = amountsOwed.get(name);
+            Double value = Double.valueOf(decimalFormat.format(amountsOwed.get(name)));
             str.append(name + " owes " + value + "\n");
         }
 
@@ -98,6 +100,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
     private void toHomeFragment() {
         Intent i = new Intent(SplitSettlementActivity.this, MainActivity.class);
         i.putExtra(USER_BILL_KEY, Parcels.wrap(bill));
+        i.putExtra(SPLIT_BILL_INFORMATION_KEY, Parcels.wrap(splitBill));
         startActivity(i);
     }
 }
