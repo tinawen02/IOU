@@ -2,14 +2,14 @@ package com.example.iou.bill.activities;
 
 import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
@@ -20,8 +20,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
-
-import java.util.Map;
 
 public class EvenSettlementActivity extends AppCompatActivity {
 
@@ -58,7 +56,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
         StringBuilder str = new StringBuilder();
 
         for (String name : splitBill.getPeople()) {
-            str.append(name + " owes " + amountOwed + "\n");
+            str.append(name + " owes $" + amountOwed + "\n");
         }
 
         // Set the names of people and amounts each person owes

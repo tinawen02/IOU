@@ -1,0 +1,183 @@
+package com.example.iou.map.activities;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.iou.R;
+import com.example.iou.databinding.ActivityGoogleMapsBinding;
+import com.example.iou.map.models.RestaurantItem;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    public String URL;
+    private GoogleMap mMap;
+    private ActivityGoogleMapsBinding binding;
+    private LocationManager locationManager;
+    private final static String KEY_LOCATION = "location";
+    private List<RestaurantItem> nearbyRestaurants;
+    Location mCurrentLocation;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        binding = ActivityGoogleMapsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        // Used to store the restaurants nearby the user
+        nearbyRestaurants = new ArrayList<>();
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
+            // Since KEY_LOCATION was found in the Bundle, we can be sure that mCurrentLocation is not null
+            mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+        }
+
+        // Helps get the current location of the user
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(GoogleMapsActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
+        // Registers for location updates using the GPS
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 25, 5, new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+
+                // Retrieve the URL for the API call based on the user's location
+                URL = findUsersLocation(location);
+
+                // Makes a GET request from the Google Maps API
+                AsyncHttpClient client = new AsyncHttpClient();
+                client.get(URL, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, okhttp3.Headers headers, JSON json) {
+                        JSONObject jsonObject = json.jsonObject;
+                        try {
+                            JSONArray results = jsonObject.getJSONArray("results");
+                            // Adds the nearby restaurants to nearbyRestaurants
+                            nearbyRestaurants.addAll(RestaurantItem.fromJsonArray(results));
+                            // Sets the pin of open restaurants to be magenta
+                            BitmapDescriptor openPin = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA);
+                            // Sets the pin of closed restaurants to be orange
+                            BitmapDescriptor closedPin = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
+                            // Sets the pin of restaurants with no information to be yellow
+                            BitmapDescriptor noInfoPin = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+
+                            // Iterates through the restaurants near the user
+                            for (int i = 0; i < nearbyRestaurants.size(); i++) {
+                                // Gets the position of a restaurant
+                                RestaurantItem restaurant = nearbyRestaurants.get(i);
+                                // Sets the pin on the map based on the status of the restaurant's hour of operation
+                                setRestaurantPin(restaurant, openPin, closedPin, noInfoPin);
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(GoogleMapsActivity.this, "Error while generating nearby pins!", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFailure(int statusCode, okhttp3.Headers headers, String response, Throwable throwable) {
+                        Toast.makeText(GoogleMapsActivity.this, "Error while displaying map!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+    }
+
+    // Generates the URL for the API request based on the user's location
+    private String findUsersLocation(Location location) {
+
+        // Retrieve the longitude and latitude of the user
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+
+        // Add a pin at user's current location
+        LatLng userCoordinates = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(userCoordinates).title("Your Current Coordinates"));
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userCoordinates, 13);
+        mMap.animateCamera(cameraUpdate);
+
+        // Used to get the Google Maps API request given the API key
+        URL = String.format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=5000&types=restaurant&key=%s", latitude, longitude, getString(R.string.MAPS_API_KEY));
+
+        return URL;
+    }
+
+    // Sets the pin on the map based on the status of the restaurant's hour of operation
+    private void setRestaurantPin(RestaurantItem restaurant, BitmapDescriptor openPin, BitmapDescriptor closedPin, BitmapDescriptor noInfoPin) {
+        // Sets the longitude and latitude of the restaurant
+        double restaurantLatitude = restaurant.getLatitude();
+        double restaurantLongitude = restaurant.getLongitude();
+        LatLng restaurantLocation = new LatLng(restaurantLatitude, restaurantLongitude);
+
+        // Creates a marker (pin) on the map
+        MarkerOptions markerOptions = new MarkerOptions()
+                .title(restaurant.getName())
+                .snippet(String.valueOf(restaurant.getAddress()))
+                .position(restaurantLocation);
+
+        if (restaurant.isOpen() != null && restaurant.isOpen()) {
+            // Sets a magenta pin if the restaurant is open
+            markerOptions.icon(openPin);
+        }  else if (restaurant.isOpen() != null && !restaurant.isOpen()) {
+            // Sets an orange pin if the restaurant is closed
+            markerOptions.icon(closedPin);
+        } else {
+            // Sets a yellow pin if the restaurant has no information
+            markerOptions.icon(noInfoPin);
+        }
+
+        // Adds the pin to the map
+        mMap.addMarker(markerOptions);
+    }
+
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+    }
+}

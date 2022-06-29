@@ -16,7 +16,6 @@ import com.example.iou.R;
 import com.example.iou.bill.models.BillItem;
 import com.example.iou.bill.models.SplitBill;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHolder> {
@@ -91,15 +90,13 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
                 checkbox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        boolean checked = !bill.getChecks(finalI);
                         // Set the UI to display the check or uncheck
-                        checkbox.setChecked(!bill.getChecks(finalI));
-
+                        checkbox.setChecked(checked);
                         // Update the BillItem bill
-                        bill.toggleCheckbox(finalI, !bill.getChecks(finalI));
+                        bill.toggleCheckbox(finalI, checked);
                     }
                 });
-
                 llCheckboxesContainer.addView(checkbox);
             }
         }

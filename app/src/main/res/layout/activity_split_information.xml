@@ -8,57 +8,60 @@
 
     <EditText
         android:id="@+id/etLocation"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:gravity="center"
         android:textColor="@color/black"
+        android:textSize="19sp"
         android:hint="@string/where_did_you_go"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etPeople"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
+        android:textSize="19sp"
         android:textColor="@color/black"
         android:hint="@string/add_people_separated_by_commas"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etLocation" />
 
     <EditText
         android:id="@+id/etItemPrices"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:textSize="17sp"
+        android:textSize="19sp"
         android:textColor="@color/black"
         android:hint="@string/add_item_prices_separated_by_commas"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPeople" />
 
     <EditText
         android:id="@+id/etFinalBill"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:hint="@string/final_bill_amount"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etItemPrices" />
 
     <Button
         android:id="@+id/btnSplitNext"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,8 +3,8 @@
     <style name="Theme.IOU" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="fontFamily">@font/lemon_milk_light</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#00ABFD</item>
-        <item name="colorPrimaryVariant">#00ABFD</item>
+        <item name="colorPrimary">@color/light_purple</item>
+        <item name="colorPrimaryVariant">@color/light_purple</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#fdad5c</item>
