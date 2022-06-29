@@ -53,18 +53,6 @@ public class BillFragment extends Fragment {
             }
         });
 
-        // Gives the user more information about the Split Button when hovering
-        /*
-        btnSplitEven.setOnHoverListener(new View.OnHoverListener() {
-            @Override
-            public boolean onHover(View v, MotionEvent event) {
-                Toast.makeText(getContext(), "Select this option if you want to split items between people!", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-        
-         */
-
         // Brings user to the Even Information Activity
         btnSplitEven.setOnClickListener(new View.OnClickListener() {
             @Override

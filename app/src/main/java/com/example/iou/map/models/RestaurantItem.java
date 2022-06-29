@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantItem {
-    private String name;
-    private String address;
-    private double rating;
-    private double latitude;
-    private double longitude;
-    private Boolean isOpen;
+    private final String name;
+    private final String address;
+    private final double rating;
+    private final double latitude;
+    private final double longitude;
+    private final Boolean isOpen;
 
     public RestaurantItem(JSONObject jsonObject) throws JSONException {
         this.name = jsonObject.getString("name");
@@ -21,19 +21,16 @@ public class RestaurantItem {
         this.latitude = jsonObject.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
         this.longitude = jsonObject.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
 
-        try {
+        // Checks to see if a restaurant is open or not
+        if (jsonObject.has("opening_hours")) {
             this.isOpen = jsonObject.getJSONObject("opening_hours").getBoolean("open_now");
+        } else {
+            this.isOpen = null;
         }
-        catch (JSONException e) {
-            isOpen = null;
-        }
-        try {
-            this.rating = jsonObject.getDouble("rating");
-        }
-        catch (JSONException e) {
-            this.rating = -1;
-            e.printStackTrace();
-        }
+
+        // Gets the rating of a restaurant if it has one
+        this.rating = jsonObject.optDouble("rating", -1);
+
     }
 
     public static List<RestaurantItem> fromJsonArray(JSONArray restaurantJsonArray) throws JSONException {
