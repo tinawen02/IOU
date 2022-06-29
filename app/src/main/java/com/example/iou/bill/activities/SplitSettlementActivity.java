@@ -4,14 +4,14 @@ import static com.example.iou.IOUKeys.AMOUNTS_OWED_KEY;
 import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
 import static com.example.iou.IOUKeys.USER_BILL_KEY;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
@@ -24,7 +24,6 @@ import com.parse.SaveCallback;
 import org.parceler.Parcels;
 
 import java.text.DecimalFormat;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -63,11 +62,10 @@ public class SplitSettlementActivity extends AppCompatActivity {
 
         // Build the string of names of people and amounts each person owes
         StringBuilder str = new StringBuilder();
-        for (Iterator i = keys.iterator(); i.hasNext(); ) {
-            String name = (String) i.next();
-            Double value = Double.valueOf(decimalFormat.format(amountsOwed.get(name)));
-            str.append(name + " owes " + value + "\n");
-        }
+        for (String name : amountsOwed.keySet()) {
+                String value = decimalFormat.format(amountsOwed.get(name));
+                str.append(name + " owes $" + value + "\n");
+            }
 
         // Set the names of people and amounts each person owes
         tvAmountsOwed.setText(str);

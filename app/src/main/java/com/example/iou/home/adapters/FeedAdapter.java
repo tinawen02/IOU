@@ -16,7 +16,6 @@ import com.example.iou.home.activities.BillDetailsActivity;
 
 import org.parceler.Parcels;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +68,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
             // Bind the post data to the view elements
             tvLocationFeed.setText(bill.getLocation());
-            tvBillAmountFeed.setText(String.valueOf(bill.getFinalBill()));
+            tvBillAmountFeed.setText("Total Bill: $" + String.valueOf(bill.getFinalBill()));
             tvAmountsOwedFeed.setText(bill.getAmountsOwed());
 
             // TODO: click on the background possibly?
