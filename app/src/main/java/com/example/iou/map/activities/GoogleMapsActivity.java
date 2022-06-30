@@ -23,9 +23,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -44,6 +46,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private final static String KEY_LOCATION = "location";
     private List<RestaurantItem> nearbyRestaurants;
     Location mCurrentLocation;
+    double currLatitude;
+    double currLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
                 // Retrieve the URL for the API call based on the user's location
                 URL = findUsersLocation(location);
+
+                // Sets the current location of the user
+
 
                 // Makes a GET request from the Google Maps API
                 AsyncHttpClient client = new AsyncHttpClient();
@@ -126,15 +133,26 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
 
+        currLatitude = latitude;
+        currLongitude = longitude;
+
         // Add a pin at user's current location
-        LatLng userCoordinates = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(userCoordinates).title("Your Current Coordinates"));
+        final LatLng userCoordinates = new LatLng(latitude, longitude);
+
+        // TODO: fix legend
+        Marker myLocation = mMap.addMarker(new MarkerOptions().position(userCoordinates)
+                .title("Restaurant Status")
+                .snippet("Magenta = Open\n Orange = Closed\n Yellow = No Information"));
+
+        myLocation.showInfoWindow();
+
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userCoordinates, 13);
         mMap.animateCamera(cameraUpdate);
 
         // Used to get the Google Maps API request given the API key
         URL = String.format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=5000&types=restaurant&key=%s", latitude, longitude, getString(R.string.MAPS_API_KEY));
 
+        System.out.println(URL);
         return URL;
     }
 
@@ -166,7 +184,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.addMarker(markerOptions);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -179,5 +196,16 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        UiSettings uiSettings = mMap.getUiSettings();
+        // Allows a user to use gestures
+        uiSettings.setAllGesturesEnabled(true);
+        // Allows a user to get directions to a pin from their current location
+        uiSettings.setMapToolbarEnabled(true);
+        // Allows a user to zoom in/out
+        uiSettings.setZoomControlsEnabled(true);
+        // Allows a user to scroll
+        uiSettings.setScrollGesturesEnabled(true);
+
     }
 }

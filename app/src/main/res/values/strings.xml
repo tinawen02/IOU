@@ -25,10 +25,9 @@
     <string name="total_bill_amount">Total Bill Amount</string>
     <string name="save_bill">Save Bill</string>
     <string name="IOU">IOU</string>
-
-    <string name="google_maps_api_key">AIzaSyAjIdaBR-JdiAx1cLYDZ9O73ZsAF0V0iN8</string>
     <string name="title_activity_google_maps">GoogleMapsActivity</string>
     <string name="click_to_go_to_map">Click to go to Map</string>
     <string name="an_hour_ago">an hour ago</string>
+    <string name="settings">Settings</string>
 
 </resources>
