@@ -9,10 +9,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.iou.databinding.ActivityMainBinding;
@@ -32,31 +28,50 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_bill, R.id.navigation_map)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-
         // Create a toolbar to display settings
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Find the view pager that will allow the user to swipe between fragments
-//        viewPager = (ViewPager)findViewById(R.id.pager);
-//
-//        // Create an adapter that knows which fragment should be shown on each page
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//
-//        // Set the adapter onto the view pager
-//        viewPager.setAdapter(adapter);
-//
-//        setUpBottomViewNavigation();
+        viewPager = (ViewPager)findViewById(R.id.pager);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        mainBottomNav.getMenu().findItem(R.id.navigation_home).setChecked(true);
+                        break;
+                    case 1:
+                        mainBottomNav.getMenu().findItem(R.id.navigation_bill).setChecked(true);
+                        break;
+                    case 2:
+                        mainBottomNav.getMenu().findItem(R.id.navigation_map).setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
+        // Create an adapter that knows which fragment should be shown on each page
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
+
+
+
+        setUpBottomViewNavigation();
     }
 
     @SuppressLint("NonConstantResourceId")
