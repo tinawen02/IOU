@@ -134,9 +134,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
             public void run() {
                 toHomeFragment();
             }
-        }, 3000);
-
-
+        }, 2000);
     }
 
     // Brings a user to the Home Fragment when a button is clicked
@@ -144,7 +142,6 @@ public class EvenSettlementActivity extends AppCompatActivity {
         Intent i = new Intent(EvenSettlementActivity.this, MainActivity.class);
         startActivity(i);
     }
-
 
     // Completes an animation with confetti once a user clicks the "save bill" button
     public void explode() {
