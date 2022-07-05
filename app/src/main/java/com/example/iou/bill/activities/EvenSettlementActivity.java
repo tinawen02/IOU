@@ -3,13 +3,16 @@ package com.example.iou.bill.activities;
 import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
@@ -21,6 +24,18 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
+import nl.dionsegijn.konfetti.core.Party;
+import nl.dionsegijn.konfetti.core.PartyFactory;
+import nl.dionsegijn.konfetti.core.Position;
+import nl.dionsegijn.konfetti.core.emitter.Emitter;
+import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import nl.dionsegijn.konfetti.core.models.Shape;
+import nl.dionsegijn.konfetti.xml.KonfettiView;
+import nl.dionsegijn.konfetti.core.models.Size;
+
 public class EvenSettlementActivity extends AppCompatActivity {
 
     private SplitBill splitBill;
@@ -28,6 +43,9 @@ public class EvenSettlementActivity extends AppCompatActivity {
     private TextView tvLocationEven;
     private TextView tvBillAmountEven;
     private TextView tvAmountsOwedEven;
+    private KonfettiView konfettiView;
+
+    private Shape.DrawableShape drawableShape = null;
 
     private BillParse bill = new BillParse();
 
@@ -43,6 +61,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
         tvLocationEven = findViewById(R.id.tvLocationEven);
         tvBillAmountEven = findViewById(R.id.tvBillAmountEven);
         tvAmountsOwedEven = findViewById(R.id.tvAmountsOwedEven);
+        konfettiView = findViewById(R.id.konfettiView);
 
         // Set the views with specific information regarding the transaction
         tvLocationEven.setText(splitBill.getRestaurantName());
@@ -76,18 +95,65 @@ public class EvenSettlementActivity extends AppCompatActivity {
             }
         });
 
-        // Bring user to the Home Fragment
+        // Bring user to the Home Fragment and displays confetti
         btnSaveBillEven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toHomeFragment();
+                startConfetti();
             }
         });
+    }
+
+    // Starts the animation once a button is clicked
+    private void startConfetti() {
+        final Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_dashboard_black_24dp);
+        drawableShape = new Shape.DrawableShape(drawable, true);
+        EmitterConfig emitterConfig = new Emitter(5L, TimeUnit.SECONDS).perSecond(50);
+        Party party = new PartyFactory(emitterConfig)
+                .angle(270)
+                .spread(90)
+                .setSpeedBetween(1f, 5f)
+                .timeToLive(2000L)
+                .shapes(new Shape.Rectangle(0.2f), drawableShape)
+                .sizes(new Size(12, 5f, 0.2f))
+                .position(0.0, 0.0, 1.0, 0.0)
+                .build();
+
+        // Sets an on click listener on the KonfettiView
+        konfettiView.setOnClickListener(view ->
+                konfettiView.start(party)
+        );
+
+        // Shows exploding confetti
+        explode();
+
+        // Delays the transition to the home fragment for 3 seconds
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toHomeFragment();
+            }
+        }, 2000);
     }
 
     // Brings a user to the Home Fragment when a button is clicked
     private void toHomeFragment() {
         Intent i = new Intent(EvenSettlementActivity.this, MainActivity.class);
         startActivity(i);
+    }
+
+    // Completes an animation with confetti once a user clicks the "save bill" button
+    public void explode() {
+        EmitterConfig emitterConfig = new Emitter(100L, TimeUnit.MILLISECONDS).max(100);
+        konfettiView.start(
+                new PartyFactory(emitterConfig)
+                        .spread(360)
+                        .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
+                        .colors(Arrays.asList(0xfce18a, 0xff726d, 0xf4306d, 0xb48def))
+                        .setSpeedBetween(0f, 30f)
+                        .position(new Position.Relative(0.5, 0.3))
+                        .build()
+        );
     }
 }
