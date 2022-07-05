@@ -73,5 +73,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <nl.dionsegijn.konfetti.xml.KonfettiView
+        android:id="@+id/konfettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
