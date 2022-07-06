@@ -17,7 +17,7 @@ public class RestaurantItem {
 
     public RestaurantItem(JSONObject jsonObject) throws JSONException {
         this.name = jsonObject.getString("name");
-        this.address = jsonObject.getString("vicinity");
+        this.address = jsonObject.getString("formatted_address");
         this.latitude = jsonObject.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
         this.longitude = jsonObject.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
 

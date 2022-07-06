@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
         // Find the view pager that will allow the user to swipe between fragments
         viewPager = (ViewPager)findViewById(R.id.pager);
 
+        // Allows a user to swipe between pages
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                return;
             }
 
             @Override
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                return;
             }
         });
 
@@ -69,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
 
-
-
+        // Swipes between the icons in the bottom navigation view
         setUpBottomViewNavigation();
     }
 
+    // Swipes between the icons in the bottom navigation view
     @SuppressLint("NonConstantResourceId")
     private void setUpBottomViewNavigation() {
 
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // Brings the user to the settings page when they on the gear icon
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.toolbar_settings) {
