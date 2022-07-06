@@ -5,4 +5,5 @@ public class IOUKeys {
     public static String AMOUNTS_OWED_KEY = "AMOUNTS_OWED";
     public static String USER_BILL_KEY = "USER_BILL";
     public static String BILL_DETAILS_KEY = "BILL_DETAILS";
+    public static String WHERE_TO_EAT_KEY = "WHERE_TO_EAT";
 }

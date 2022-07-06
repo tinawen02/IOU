@@ -1,11 +1,14 @@
 package com.example.iou.map.activities;
 
+import static com.example.iou.IOUKeys.WHERE_TO_EAT_KEY;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +63,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         // Used to store the restaurants nearby the user
         nearbyRestaurants = new ArrayList<>();
 
+        // Unwrap the parcel from the map fragment
+        String whereTo = Parcels.unwrap(getIntent().getParcelableExtra(WHERE_TO_EAT_KEY));
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -82,10 +89,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             public void onLocationChanged(@NonNull Location location) {
 
                 // Retrieve the URL for the API call based on the user's location
-                URL = findUsersLocation(location);
-
-                // Sets the current location of the user
-
+                URL = findUsersLocation(location, whereTo);
 
                 // Makes a GET request from the Google Maps API
                 AsyncHttpClient client = new AsyncHttpClient();
@@ -113,6 +117,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                             }
                         } catch (JSONException e) {
                             Toast.makeText(GoogleMapsActivity.this, "Error while generating nearby pins!", Toast.LENGTH_SHORT).show();
+                            Log.e("GoogleMapsActivity", e.toString());
                             e.printStackTrace();
                         }
                     }
@@ -127,7 +132,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     // Generates the URL for the API request based on the user's location
-    private String findUsersLocation(Location location) {
+    private String findUsersLocation(Location location,String whereTo) {
+
+        System.out.println("Testing = " + whereTo);
 
         // Retrieve the longitude and latitude of the user
         double longitude = location.getLongitude();
@@ -150,8 +157,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.animateCamera(cameraUpdate);
 
         // Used to get the Google Maps API request given the API key
-        URL = String.format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=5000&types=restaurant&key=%s", latitude, longitude, getString(R.string.MAPS_API_KEY));
-
+        URL = String.format("https://maps.googleapis.com/maps/api/place/textsearch/json?location=%f,%f&radius=5000&query=%s&key=%s", latitude, longitude, whereTo, getString(R.string.MAPS_API_KEY));
         System.out.println(URL);
         return URL;
     }

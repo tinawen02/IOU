@@ -131,7 +131,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
         // Shows exploding confetti
         explode();
 
-        // Delays the transition to the home fragment for 3 seconds
+        // Delays the transition to the home fragment for 2 seconds
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
