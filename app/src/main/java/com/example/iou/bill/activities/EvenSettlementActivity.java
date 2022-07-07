@@ -38,16 +38,9 @@ import nl.dionsegijn.konfetti.core.models.Size;
 
 public class EvenSettlementActivity extends AppCompatActivity {
 
-    private SplitBill splitBill;
-
-    private TextView tvLocationEven;
-    private TextView tvBillAmountEven;
-    private TextView tvAmountsOwedEven;
     private KonfettiView konfettiView;
-
     private Shape.DrawableShape drawableShape = null;
-
-    private BillParse bill = new BillParse();
+    private final BillParse bill = new BillParse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +48,12 @@ public class EvenSettlementActivity extends AppCompatActivity {
         setContentView(R.layout.activity_even_settlement);
 
         // Unwrap the information from the Dividing Items Activity
-        splitBill = Parcels.unwrap(getIntent().getParcelableExtra(SPLIT_BILL_INFORMATION_KEY));
+        final SplitBill splitBill = Parcels.unwrap(getIntent().getParcelableExtra(SPLIT_BILL_INFORMATION_KEY));
 
         final Button btnSaveBillEven = findViewById(R.id.btnSaveBillEven);
-        tvLocationEven = findViewById(R.id.tvLocationEven);
-        tvBillAmountEven = findViewById(R.id.tvBillAmountEven);
-        tvAmountsOwedEven = findViewById(R.id.tvAmountsOwedEven);
+        final TextView tvLocationEven = findViewById(R.id.tvLocationEven);
+        final TextView tvBillAmountEven = findViewById(R.id.tvBillAmountEven);
+        final TextView tvAmountsOwedEven = findViewById(R.id.tvAmountsOwedEven);
         konfettiView = findViewById(R.id.konfettiView);
 
         // Set the views with specific information regarding the transaction

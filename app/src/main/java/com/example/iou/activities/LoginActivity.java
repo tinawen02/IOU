@@ -1,12 +1,12 @@
 package com.example.iou.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
@@ -18,8 +18,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername;
     private EditText etPassword;
-    private Button btnLogin;
-    private Button btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnSignup = findViewById(R.id.btnSignup);
+        final Button btnLogin = findViewById(R.id.btnLogin);
+        final Button btnSignup = findViewById(R.id.btnSignup);
 
         // Brings the user to the login process when login button is clicked
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void toLogin() {
         // Retrieves the username and password the user inputted
-        String username = etUsername.getText().toString();
-        String password = etPassword.getText().toString();
+        final String username = etUsername.getText().toString();
+        final String password = etPassword.getText().toString();
 
         // Logs a user into Parse
         ParseUser.logInInBackground(username, password, new LogInCallback() {

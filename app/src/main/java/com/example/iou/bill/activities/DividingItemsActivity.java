@@ -28,7 +28,6 @@ public class DividingItemsActivity extends AppCompatActivity {
 
     private SplitBill splitBill;
     private List<BillItem> items;
-    private BillItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class DividingItemsActivity extends AppCompatActivity {
             items.add(billItem);
         }
 
-        adapter = new BillItemAdapter(this, items, splitBill);
+        final BillItemAdapter adapter = new BillItemAdapter(this, items, splitBill);
 
         // Attach the adapter to the recyclerview to populate items
         rvItems.setAdapter(adapter);
