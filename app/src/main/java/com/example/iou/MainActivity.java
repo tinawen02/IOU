@@ -29,19 +29,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Create a toolbar to display settings
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
 
         // Find the view pager that will allow the user to swipe between fragments
-        viewPager = (ViewPager)findViewById(R.id.pager);
+        viewPager = binding.pager;
+        swipeBetweenViews(viewPager);
 
-        // Allows a user to swipe between pages
+        // Create an adapter that knows which fragment should be shown on each page
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
+
+        // Swipes between the icons in the bottom navigation view
+        setUpBottomViewNavigation();
+    }
+
+    private void swipeBetweenViews(ViewPager viewPager) {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                return;
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
+            // Allows a user to swipe between the different views
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
@@ -58,20 +68,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-                return;
-            }
+            public void onPageScrollStateChanged(int state) { }
         });
-
-
-        // Create an adapter that knows which fragment should be shown on each page
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        // Set the adapter onto the view pager
-        viewPager.setAdapter(adapter);
-
-        // Swipes between the icons in the bottom navigation view
-        setUpBottomViewNavigation();
     }
 
     // Swipes between the icons in the bottom navigation view

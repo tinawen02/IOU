@@ -89,7 +89,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             public void onLocationChanged(@NonNull Location location) {
 
                 // Retrieve the URL for the API call based on the user's location
-                URL = findUsersLocation(location, whereTo);
+                URL = generateURL(location, whereTo);
 
                 // Makes a GET request from the Google Maps API
                 AsyncHttpClient client = new AsyncHttpClient();
@@ -132,9 +132,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     // Generates the URL for the API request based on the user's location
-    private String findUsersLocation(Location location,String whereTo) {
-
-        System.out.println("Testing = " + whereTo);
+    private String generateURL(Location location,String whereTo) {
 
         // Retrieve the longitude and latitude of the user
         double longitude = location.getLongitude();
@@ -158,7 +156,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         // Used to get the Google Maps API request given the API key
         URL = String.format("https://maps.googleapis.com/maps/api/place/textsearch/json?location=%f,%f&radius=5000&query=%s&key=%s", latitude, longitude, whereTo, getString(R.string.MAPS_API_KEY));
-        System.out.println(URL);
         return URL;
     }
 
