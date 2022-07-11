@@ -1,5 +1,7 @@
 package com.example.iou.activities;
 
+import static com.example.iou.IOUKeys.IS_FIRST_TIME_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,8 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import org.parceler.Parcels;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -89,6 +93,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
+        i.putExtra(IS_FIRST_TIME_KEY, Parcels.wrap(true));
         startActivity(i);
         finish();
     }

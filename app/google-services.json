@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "81194630381",
+    "project_id": "iou-tina-202ae",
+    "storage_bucket": "iou-tina-202ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81194630381:android:ca7c68e495f5a96922e0e4",
+        "android_client_info": {
+          "package_name": "com.example.iou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81194630381-k238gfda0lokbf60psl4v6urlnmrmpmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXF4Nxgu0wJzOs1CQOFa_mXRyYjkTKO6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81194630381-k238gfda0lokbf60psl4v6urlnmrmpmu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

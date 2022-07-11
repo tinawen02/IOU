@@ -1,5 +1,7 @@
 package com.example.iou.activities;
 
+import static com.example.iou.IOUKeys.IS_FIRST_TIME_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ import com.example.iou.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import org.parceler.Parcels;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -78,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     // Returns the user to the timeline
     private void goMainActivity() {
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        i.putExtra(IS_FIRST_TIME_KEY, Parcels.wrap(false));
         startActivity(i);
         finish();
     }
