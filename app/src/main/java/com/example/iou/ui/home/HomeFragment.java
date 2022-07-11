@@ -23,6 +23,7 @@ import com.example.iou.home.adapters.FeedAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -119,8 +120,12 @@ public class HomeFragment extends Fragment {
         // Specify what type of data we want to query - Post.class
         ParseQuery<BillParse> query = ParseQuery.getQuery(BillParse.class);
 
+
         // Include data referred by user key
         query.include(BillParse.KEY_USER);
+
+        // Only includes posts from a logged in user
+        query.whereEqualTo(BillParse.KEY_USER, ParseUser.getCurrentUser());
 
         // Allows for user to vies more than 20 posts
         if(time != null) {
