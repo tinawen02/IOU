@@ -20,9 +20,9 @@ import java.util.List;
 
 public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHolder> {
 
-    private Context context;
-    private List<BillItem> bills;
-    private SplitBill splitBill;
+    private final Context context;
+    private final List<BillItem> bills;
+    private final SplitBill splitBill;
 
     public BillItemAdapter(Context context, List<BillItem> bills, SplitBill splitBill) {
         this.context = context;
@@ -53,8 +53,8 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvItemPrice;
-        private LinearLayout llCheckboxesContainer;
+        private final TextView tvItemPrice;
+        private final LinearLayout llCheckboxesContainer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

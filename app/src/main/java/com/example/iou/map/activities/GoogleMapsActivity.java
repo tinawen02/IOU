@@ -45,8 +45,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
     public String URL;
     private GoogleMap mMap;
-    private ActivityGoogleMapsBinding binding;
-    private LocationManager locationManager;
     private final static String KEY_LOCATION = "location";
     private List<RestaurantItem> nearbyRestaurants;
     Location mCurrentLocation;
@@ -57,7 +55,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityGoogleMapsBinding.inflate(getLayoutInflater());
+        com.example.iou.databinding.ActivityGoogleMapsBinding binding = ActivityGoogleMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Used to store the restaurants nearby the user
@@ -77,7 +75,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         }
 
         // Helps get the current location of the user
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(GoogleMapsActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);

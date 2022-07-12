@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SplitSettlementCalculator {
-    private List<BillItem> items;
-    private SplitBill splitBill;
+    private final List<BillItem> items;
+    private final SplitBill splitBill;
 
     public SplitSettlementCalculator(SplitBill splitBill, List<BillItem> items) {
         this.splitBill = splitBill;

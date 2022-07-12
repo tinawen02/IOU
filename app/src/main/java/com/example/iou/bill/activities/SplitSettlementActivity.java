@@ -43,16 +43,9 @@ import nl.dionsegijn.konfetti.xml.KonfettiView;
 public class SplitSettlementActivity extends AppCompatActivity {
 
     private SplitBill splitBill;
-    private Map<String, Double> amountsOwed;
-
-    private TextView tvLocation;
-    private TextView tvBillAmount;
-    private TextView tvAmountsOwed;
     private KonfettiView konfettiView;
-
     private Shape.DrawableShape drawableShape = null;
-
-    private BillParse bill = new BillParse();
+    private final BillParse bill = new BillParse();
     private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     @Override
@@ -62,12 +55,12 @@ public class SplitSettlementActivity extends AppCompatActivity {
 
         // Unwrap the information from the Dividing Items Activity
         splitBill = Parcels.unwrap(getIntent().getParcelableExtra(SPLIT_BILL_INFORMATION_KEY));
-        amountsOwed = Parcels.unwrap(getIntent().getParcelableExtra(AMOUNTS_OWED_KEY));
+        Map<String, Double> amountsOwed = Parcels.unwrap(getIntent().getParcelableExtra(AMOUNTS_OWED_KEY));
 
         final Button btnSaveBillSplit = findViewById(R.id.btnSaveBillSplit);
-        tvLocation = findViewById(R.id.tvLocation);
-        tvBillAmount = findViewById(R.id.tvBillAmount);
-        tvAmountsOwed = findViewById(R.id.tvAmountsOwed);
+        final TextView tvLocation = findViewById(R.id.tvLocation);
+        final TextView tvBillAmount = findViewById(R.id.tvBillAmount);
+        final TextView tvAmountsOwed = findViewById(R.id.tvAmountsOwed);
         konfettiView = findViewById(R.id.konfettiViewSplit);
 
         // Set the views with specific information regarding the transaction

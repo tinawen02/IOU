@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -34,7 +35,6 @@ ext {
     googlePlayVersion = "17.0.0"
 }
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -43,33 +43,27 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.5.0'
     implementation 'androidx.navigation:navigation-ui:2.5.0'
     implementation 'androidx.wear:wear-phone-interactions:1.1.0-alpha03'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
     implementation 'com.github.parse-community.Parse-SDK-Android:parse:1.25.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2' // for logging API calls to LogCat
-
     implementation "androidx.recyclerview:recyclerview:1.2.1"
-
     implementation 'com.github.bumptech.glide:glide:4.12.0'
-    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
-
     implementation "com.google.android.gms:play-services-maps:$googlePlayVersion"
     implementation "com.google.android.gms:play-services-location:$googlePlayVersion"
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-
     implementation 'com.codepath.libraries:asynchttpclient:2.2.0'
-
     implementation 'nl.dionsegijn:konfetti-xml:2.0.2'
     implementation 'nl.dionsegijn:konfetti-compose:2.0.2'
-
     implementation 'com.plattysoft.leonids:LeonidsLib:1.3.2'
+    implementation platform('com.google.firebase:firebase-bom:30.0.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 
 }

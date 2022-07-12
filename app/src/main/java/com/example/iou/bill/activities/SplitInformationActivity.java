@@ -2,22 +2,20 @@ package com.example.iou.bill.activities;
 
 import static com.example.iou.IOUKeys.SPLIT_BILL_INFORMATION_KEY;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.iou.R;
 import com.example.iou.bill.models.SplitBill;
 
 import org.parceler.Parcels;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +25,6 @@ public class SplitInformationActivity extends AppCompatActivity {
     private EditText etPeople;
     private EditText etItemPrices;
     private EditText etFinalBill;
-    private Button btnSplitNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +35,7 @@ public class SplitInformationActivity extends AppCompatActivity {
         etPeople = findViewById(R.id.etPeople);
         etItemPrices = findViewById(R.id.etItemPrices);
         etFinalBill = findViewById(R.id.etFinalBill);
-        btnSplitNext = findViewById(R.id.btnSplitNext);
+        final Button btnSplitNext = findViewById(R.id.btnSplitNext);
 
         // Bring user to the Dividing Items Activity and passes on relevant information
         btnSplitNext.setOnClickListener(new View.OnClickListener() {

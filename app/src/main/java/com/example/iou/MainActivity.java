@@ -1,5 +1,7 @@
 package com.example.iou;
 
+import static com.example.iou.IOUKeys.IS_FIRST_TIME_KEY;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +17,11 @@ import com.example.iou.databinding.ActivityMainBinding;
 import com.example.iou.home.activities.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.parceler.Parcels;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String ONESIGNAL_APP_ID = "2866504b-99d9-400e-8ef7-9a2995f5057d";
 
     private ActivityMainBinding binding;
     private BottomNavigationView mainBottomNav;
@@ -24,6 +30,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // TODO: keeping below code just in case alarmmanager does not work
+        /*
+        // Used for debugging
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
+        // Initialize the OneSignal services with the application context
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
+         */
+
+        // Unwrap the boolean to see if it is the first time user is logging in
+        Boolean isFirstTime = Parcels.unwrap(getIntent().getParcelableExtra(IS_FIRST_TIME_KEY));
+
+        // Runs the tutorial
+        /*
+        if (isFirstTime) {
+            runTutorial();
+        }
+
+         */
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -44,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Swipes between the icons in the bottom navigation view
         setUpBottomViewNavigation();
+    }
+
+    private void runTutorial() {
+        // Make it so that a user cannot click between fragments (tutorial is mandatory)
+            // Disable the bottom navigation bar (visually looks the same)
+        //
+
     }
 
     private void swipeBetweenViews(ViewPager viewPager) {
