@@ -17,6 +17,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.iou.R;
 
+import java.util.Calendar;
+
 public class NotificationUtils extends ContextWrapper {
 
     private NotificationManager notificationManager;
@@ -32,6 +34,7 @@ public class NotificationUtils extends ContextWrapper {
     }
 
     public NotificationCompat.Builder setNotification(String title, String body) {
+
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_KEY)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle(title)
@@ -41,6 +44,7 @@ public class NotificationUtils extends ContextWrapper {
     }
 
     private void createNotificationChannel() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_KEY, NOTIFICATION_CHANNEL_NAME_KEY, NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
@@ -60,13 +64,21 @@ public class NotificationUtils extends ContextWrapper {
         return notificationManager;
     }
 
-    public void setReminder(long milliSeconds)
+    public void setNotificationTime()
     {
+        // TESTING NOTIFICATIONS
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 4);
+        calendar.set(calendar.SECOND, 0);
+
         Intent intent = new Intent(context, NotificationReceiver.class);
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, milliSeconds, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
     }
 
 }
