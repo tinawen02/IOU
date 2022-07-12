@@ -16,7 +16,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.iou.databinding.ActivityMainBinding;
 import com.example.iou.home.activities.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.onesignal.OneSignal;
 
 import org.parceler.Parcels;
 
@@ -32,12 +31,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // TODO: keeping below code just in case alarmmanager does not work
+        /*
         // Used for debugging
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
         // Initialize the OneSignal services with the application context
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
+         */
 
         // Unwrap the boolean to see if it is the first time user is logging in
         Boolean isFirstTime = Parcels.unwrap(getIntent().getParcelableExtra(IS_FIRST_TIME_KEY));
