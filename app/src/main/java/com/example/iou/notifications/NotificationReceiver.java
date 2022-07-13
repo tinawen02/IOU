@@ -1,4 +1,4 @@
-package com.example.iou.activities;
+package com.example.iou.notifications;
 
 import static com.parse.Parse.getApplicationContext;
 

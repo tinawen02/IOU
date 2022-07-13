@@ -1,4 +1,4 @@
-package com.example.iou.activities;
+package com.example.iou.notifications;
 
 import static com.example.iou.IOUKeys.NOTIFICATION_CHANNEL_KEY;
 import static com.example.iou.IOUKeys.NOTIFICATION_CHANNEL_NAME_KEY;
@@ -69,16 +69,16 @@ public class NotificationUtils extends ContextWrapper {
         // TESTING NOTIFICATIONS
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 4);
+        calendar.set(Calendar.MINUTE, 21);
         calendar.set(calendar.SECOND, 0);
 
-        Intent intent = new Intent(context, NotificationReceiver.class);
+        Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
+        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
 }
