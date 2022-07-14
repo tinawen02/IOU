@@ -4,6 +4,6 @@
         android:drawable="@drawable/bg_gradient"/>
     <item>
         <bitmap android:gravity="center"
-            android:src="@drawable/iou_logo_medium" />
+            android:src="@drawable/iou_logo_purple_medium" />
     </item>
 </layer-list>
