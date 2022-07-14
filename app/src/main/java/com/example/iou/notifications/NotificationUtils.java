@@ -15,6 +15,7 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.iou.MainActivity;
 import com.example.iou.R;
 
 import java.util.Calendar;
@@ -35,7 +36,12 @@ public class NotificationUtils extends ContextWrapper {
 
     public NotificationCompat.Builder setNotification(String title, String body) {
 
+        // Allows a user to click on a notification
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_KEY)
+                .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle(title)
                 .setContentText(body)
@@ -68,8 +74,8 @@ public class NotificationUtils extends ContextWrapper {
     {
         // TESTING NOTIFICATIONS
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 21);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 26);
         calendar.set(calendar.SECOND, 0);
 
         Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);
@@ -77,8 +83,8 @@ public class NotificationUtils extends ContextWrapper {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
 }
