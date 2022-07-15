@@ -11,13 +11,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent)
     {
         NotificationUtils notificationUtils = new NotificationUtils(context);
-
-
-
-
-
-        NotificationCompat.Builder builder = notificationUtils.setNotification("IOU", "We haven't seen you in a while!");
-        //builder.setContentIntent(pendingIntent);
+        NotificationCompat.Builder builder = notificationUtils.setNotification("IOU", "We missed you!");
         notificationUtils.getManager().notify(100, builder.build());
     }
 }
