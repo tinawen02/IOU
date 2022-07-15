@@ -18,8 +18,6 @@ import androidx.core.app.NotificationCompat;
 import com.example.iou.MainActivity;
 import com.example.iou.R;
 
-import java.util.Calendar;
-
 public class NotificationUtils extends ContextWrapper {
 
     private NotificationManager notificationManager;
@@ -70,10 +68,11 @@ public class NotificationUtils extends ContextWrapper {
         return notificationManager;
     }
 
-    public void setNotificationTime()
+    public void setNotificationTime(long milliSeconds)
     {
-        // TESTING NOTIFICATIONS
+        /*
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
         calendar.set(Calendar.HOUR_OF_DAY, 15);
         calendar.set(Calendar.MINUTE, 51);
         calendar.set(calendar.SECOND, 0);
@@ -83,8 +82,21 @@ public class NotificationUtils extends ContextWrapper {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+         */
+
+        // when a user opens the app, set an alarm to trigger in 7 days
+        // if they close the app, cancel the alarm and set a new alarm
+        //
+
+
+        Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, milliSeconds, pendingIntent);
     }
 
 }

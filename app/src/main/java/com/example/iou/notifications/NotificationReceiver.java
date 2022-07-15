@@ -11,7 +11,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent)
     {
         NotificationUtils notificationUtils = new NotificationUtils(context);
-        NotificationCompat.Builder builder = notificationUtils.setNotification("IOU", "We missed you!");
+        NotificationCompat.Builder builder = notificationUtils.setNotification("Thanks for using IOU", "Check out the map for our updated features!");
         notificationUtils.getManager().notify(100, builder.build());
     }
 }
