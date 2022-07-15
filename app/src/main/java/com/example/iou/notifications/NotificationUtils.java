@@ -74,8 +74,8 @@ public class NotificationUtils extends ContextWrapper {
     {
         // TESTING NOTIFICATIONS
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 16);
-        calendar.set(Calendar.MINUTE, 26);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 51);
         calendar.set(calendar.SECOND, 0);
 
         Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);

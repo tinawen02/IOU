@@ -16,12 +16,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.iou.databinding.ActivityMainBinding;
 import com.example.iou.home.activities.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.onesignal.OneSignal;
 
 import org.parceler.Parcels;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String ONESIGNAL_APP_ID = "2866504b-99d9-400e-8ef7-9a2995f5057d";
+    private static final String ONESIGNAL_APP_ID = "86af8b2e-33a5-4282-b25c-081a150778b4";
 
     private ActivityMainBinding binding;
     private BottomNavigationView mainBottomNav;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         // Unwrap the boolean to see if it is the first time user is logging in
         Boolean isFirstTime = Parcels.unwrap(getIntent().getParcelableExtra(IS_FIRST_TIME_KEY));
