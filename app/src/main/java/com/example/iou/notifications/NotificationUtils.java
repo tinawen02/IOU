@@ -36,7 +36,7 @@ public class NotificationUtils extends ContextWrapper {
 
         // Allows a user to click on a notification
         Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_KEY)
                 .setContentIntent(resultPendingIntent)

@@ -5,6 +5,7 @@ import static com.example.iou.IOUKeys.IS_FIRST_TIME_KEY;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,7 +16,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.iou.databinding.ActivityMainBinding;
 import com.example.iou.home.activities.SettingsActivity;
-import com.example.iou.notifications.NotificationUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.onesignal.OneSignal;
 
@@ -68,21 +68,11 @@ public class MainActivity extends AppCompatActivity {
         // Swipes between the icons in the bottom navigation view
         setUpBottomViewNavigation();
 
-        createNotification();
+
         System.out.println("MainActivity was shown");
     }
 
-    // Creates a push notification
-    private void createNotification() {
-        NotificationUtils notificationUtils = new NotificationUtils(this);
 
-        // Determines how seconds the notification should be sent after user login
-        long currentTime = System.currentTimeMillis();
-        long numSeconds = 1000 * 3;
-        long triggerReminder = currentTime + numSeconds;
-
-        notificationUtils.setNotificationTime(triggerReminder);
-    }
 
     private void runTutorial() {
         // Make it so that a user cannot click between fragments (tutorial is mandatory)
@@ -160,6 +150,34 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("MainActivity", "getting destroyed");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        Log.i("MainActivity", "getting restarted");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.i("MainActivity", "getting stopped");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.i("MainActivity", "getting paused");
     }
 
 }
