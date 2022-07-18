@@ -6,6 +6,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.Date;
+import java.util.List;
 
 @ParseClassName("Bill")
 public class BillParse extends ParseObject {
@@ -15,6 +16,7 @@ public class BillParse extends ParseObject {
     public static final String KEY_FINAL_BILL = "finalBill";
     public static final String KEY_AMOUNTS_OWED = "amountsOwed";
     public static final String KEY_CREATED_AT = "createdAt";
+    public static final String KEY_SELECTED_INDICES = "selectedIndices";
 
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
@@ -47,6 +49,11 @@ public class BillParse extends ParseObject {
     public void setAmountsOwed(String amountsOwed) {
         put(KEY_AMOUNTS_OWED, amountsOwed);
     }
+
+    // TODO: register stuff in parse
+    public List<Boolean> getSelectedIndices() {return getList(KEY_SELECTED_INDICES);}
+
+    public void setSelectedIndices(List<Boolean> selectedIndices) {put(KEY_SELECTED_INDICES, selectedIndices); }
 
     public static String calculateTimeAgo(Date createdAt) {
 
