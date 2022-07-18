@@ -2,6 +2,7 @@ package com.example.iou.bill.models;
 
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -50,8 +51,14 @@ public class BillParse extends ParseObject {
         put(KEY_AMOUNTS_OWED, amountsOwed);
     }
 
-    // TODO: register stuff in parse
-    public List<Boolean> getSelectedIndices() {return getList(KEY_SELECTED_INDICES);}
+    public List<Boolean> getSelectedIndices() {
+        try {
+            return fetchIfNeeded().getList(KEY_SELECTED_INDICES);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return getList(KEY_SELECTED_INDICES);
+        }
+    }
 
     public void setSelectedIndices(List<Boolean> selectedIndices) {put(KEY_SELECTED_INDICES, selectedIndices); }
 
