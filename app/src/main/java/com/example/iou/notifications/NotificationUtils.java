@@ -21,7 +21,7 @@ import com.example.iou.R;
 public class NotificationUtils extends ContextWrapper {
 
     private NotificationManager notificationManager;
-    private Context context;
+    private final Context context;
 
     // Constructor to be used when creating a notification
     public NotificationUtils(Context context) {
@@ -34,26 +34,30 @@ public class NotificationUtils extends ContextWrapper {
 
     public NotificationCompat.Builder setNotification(String title, String body) {
 
-        // Allows a user to click on a notification
+        // Sets the intent that will fire when a user clicks on the notification
         Intent resultIntent = new Intent(this, MainActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        // Sets the text, notification logo, and priority of the notification
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_KEY)
                 .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_MAX);
     }
 
     private void createNotificationChannel() {
 
+        // Only create a notification channel if the API is greater than 26
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_KEY, NOTIFICATION_CHANNEL_NAME_KEY, NotificationManager.IMPORTANCE_DEFAULT);
+
+            // Create the notification channel and set the priority
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_KEY, NOTIFICATION_CHANNEL_NAME_KEY, NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
-            // Register the channel with notification manager
+            // Register the channel with the system
             NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.createNotificationChannel(notificationChannel);
         }
@@ -62,9 +66,9 @@ public class NotificationUtils extends ContextWrapper {
     public NotificationManager getManager()
     {
         if(notificationManager == null) {
+            // Creates a NotificationManager to notify user of a notification in the background
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
-
         return notificationManager;
     }
 
@@ -87,16 +91,17 @@ public class NotificationUtils extends ContextWrapper {
 
          */
 
-        // when a user opens the app, set an alarm to trigger in 7 days
-        // if they close the app, cancel the alarm and set a new alarm
-        //
-
-
+        // Sets an intent to start the Broadcast Receiver
         Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        // Sets the notification to appear after a certain amount of time
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, milliSeconds, pendingIntent);
+    }
+
+    public void setWelcomeNotificationTime(long milliSeconds) {
+
     }
 
 }

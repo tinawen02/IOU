@@ -48,7 +48,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         return bills.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView tvLocationFeed;
         private final TextView tvBillAmountFeed;
@@ -62,6 +62,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             tvBillAmountFeed = itemView.findViewById(R.id.tvBillAmountFeed);
             tvAmountsOwedFeed = itemView.findViewById(R.id.tvAmountsOwedFeed);
             tvTimeStampFeed = itemView.findViewById(R.id.tvTimeStampFeed);
+
+            itemView.setOnClickListener(this);
         }
 
         public void bind(BillParse bill) {
@@ -71,21 +73,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             tvBillAmountFeed.setText("Total Bill: $" + String.valueOf(bill.getFinalBill()));
             tvAmountsOwedFeed.setText(bill.getAmountsOwed());
 
-            // TODO: click on the background possibly?
-            tvLocationFeed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, BillDetailsActivity.class);
-                    // Serialize the bill using parceler, use its short name as a key
-                    intent.putExtra("BILL_DETAILS", Parcels.wrap(bill));
-                    context.startActivity(intent);
-                }
-            });
-
             // Calculate relative date of the post
             Date createdAt = bill.getCreatedAt();
             String timeAgo = BillParse.calculateTimeAgo(createdAt);
             tvTimeStampFeed.setText(timeAgo);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAbsoluteAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                BillParse bill = bills.get(position);
+                Intent intent = new Intent(context, BillDetailsActivity.class);
+                // Serialize the bill using parceler, use its short name as a key
+                intent.putExtra("BILL_DETAILS", Parcels.wrap(bill));
+                context.startActivity(intent);
+            }
         }
     }
 

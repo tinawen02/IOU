@@ -74,7 +74,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
-        // Helps get the current location of the user
+        // Finds the current location of the user
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -171,19 +171,21 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         MarkerOptions markerOptions;
 
+        // If the user has opted to search for a specific food, show the foods nearby
         if (!(whereTo.equals(""))) {
+            // Creates a marker (pin) on the map
              markerOptions = new MarkerOptions()
                     .title(restaurant.getName())
                      .snippet(String.valueOf(restaurant.getAddress()))
                     .position(restaurantLocation);
+        // If the user has opted to go directly to the map, show all restaurants nearby
         } else {
             // Creates a marker (pin) on the map
             markerOptions = new MarkerOptions()
                     .title(restaurant.getName())
-                    //.snippet(String.valueOf(restaurant.getVicinity()))
+                    .snippet(String.valueOf(restaurant.getVicinity()))
                     .position(restaurantLocation);
         }
-
 
         if (restaurant.isOpen() != null && restaurant.isOpen()) {
             // Sets a magenta pin if the restaurant is open
