@@ -16,40 +16,79 @@
     tools:context=".map.activities.GoogleMapsActivity" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
         android:orientation="vertical"
-        android:background="@color/white"
-     >
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        >-->
-<!--        -->
-<!--    </LinearLayout>-->
-        <TextView
-            android:id="@+id/magentaPin"
-            android:text="Magenta Pin: "
-            android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/orangePin"
-            android:text="Orange Pin: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+        android:background="#F7F7F7">
 
-        <TextView
-            android:id="@+id/yellowPin"
-            android:text="Yellow Pin: "
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:layout_marginStart="5dp"
+                android:layout_width="20dp"
+                android:layout_height="35dp"
+                android:background="@drawable/magenta_pin" />
+
+            <TextView
+                android:id="@+id/magentaPin"
+                android:text="@string/restaurant_is_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginStart="5dp"
+                android:layout_width="20dp"
+                android:layout_height="35dp"
+                android:background="@drawable/orange_pin"/>
+
+            <TextView
+                android:id="@+id/orangePin"
+                android:text="@string/restaurant_is_closed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginStart="5dp"
+                android:layout_width="20dp"
+                android:layout_height="35dp"
+                android:background="@drawable/yellow_pin" />
+
+            <TextView
+                android:id="@+id/yellowPin"
+                android:text="@string/no_available_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
