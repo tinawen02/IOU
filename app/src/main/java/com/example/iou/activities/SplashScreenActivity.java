@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,7 +30,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 finish();
             }
         }, 1000);
-
     }
 
     @Override
@@ -44,6 +42,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void cancelNotification() {
+        // Gets the pending intent with the associated requestCode to be cancelled
         Intent intent  = new Intent(this, com.example.iou.notifications.NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -66,6 +65,5 @@ public class SplashScreenActivity extends AppCompatActivity {
         long triggerReminder = currentTime + numSeconds;
 
         notificationUtils.setNotificationTime(triggerReminder);
-        Log.i("MainActivity", "splash getting created");
     }
 }
