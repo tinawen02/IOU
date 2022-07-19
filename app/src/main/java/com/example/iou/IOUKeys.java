@@ -9,6 +9,7 @@ public class IOUKeys {
     public static String IS_FIRST_TIME_KEY = "IS_FIRST_TIME";
     public static String NOTIFICATION_CHANNEL_KEY = "myChannelId";
     public static String NOTIFICATION_CHANNEL_NAME_KEY = "MyChannel";
+    public static String FRAGMENT_KEY = "Map";
 
 
 }

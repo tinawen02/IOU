@@ -61,7 +61,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         long currentTime = System.currentTimeMillis();
 
         //TODO: change this into minutes
-        long numSeconds = 1000 * 10;
+        long numSeconds = 1000 * 3;
         long triggerReminder = currentTime + numSeconds;
 
         notificationUtils.setNotificationTime(triggerReminder);

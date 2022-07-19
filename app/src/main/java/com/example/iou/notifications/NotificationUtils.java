@@ -1,5 +1,6 @@
 package com.example.iou.notifications;
 
+import static com.example.iou.IOUKeys.FRAGMENT_KEY;
 import static com.example.iou.IOUKeys.NOTIFICATION_CHANNEL_KEY;
 import static com.example.iou.IOUKeys.NOTIFICATION_CHANNEL_NAME_KEY;
 
@@ -22,6 +23,7 @@ public class NotificationUtils extends ContextWrapper {
 
     private NotificationManager notificationManager;
     private final Context context;
+    Intent mapIntent;
 
     public NotificationUtils(Context context) {
         super(context);
@@ -35,6 +37,15 @@ public class NotificationUtils extends ContextWrapper {
         Intent resultIntent = new Intent(this, MainActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        // Allows a user to click on an action
+        initializeIntent();
+        //mapIntent = new Intent(this, SettingsActivity.class);
+
+        PendingIntent mapPendingIntent =
+                PendingIntent.getActivity(this, 1, mapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        androidx.core.app.NotificationCompat.Action action = new NotificationCompat.Action(R.drawable.ic_notifications_black_24dp, "Go to Map", mapPendingIntent);
+
         // Sets the text, notification logo, and priority of the notification
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_KEY)
                 .setContentIntent(resultPendingIntent)
@@ -42,11 +53,17 @@ public class NotificationUtils extends ContextWrapper {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
+                .addAction(action)
                 .setPriority(NotificationCompat.PRIORITY_MAX);
     }
 
-    private void createNotificationChannel() {
+    private void initializeIntent() {
+        mapIntent = new Intent(this, MainActivity.class);
+        mapIntent.putExtra(FRAGMENT_KEY, "map");
+        //mapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    }
 
+    private void createNotificationChannel() {
         // Only create a notification channel if the API is greater than 26
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
