@@ -3,7 +3,6 @@ package com.example.iou.home.activities;
 import static com.example.iou.IOUKeys.BILL_DETAILS_KEY;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -45,9 +44,6 @@ public class BillDetailsActivity extends AppCompatActivity {
         final TextView tvTimeStampDetails = findViewById(R.id.tvTimeStampDetails);
         llPricesContainer = findViewById(R.id.llPricesContainer);
 
-        // Creates the checkboxes to help user determine which people have paid
-        createCheckboxes();
-
         tvLocationDetails.setText(bill.getLocation());
         tvBillAmountDetails.setText(String.valueOf(bill.getFinalBill()));
         tvAmountsOwedDetails.setText(bill.getAmountsOwed());
@@ -56,6 +52,9 @@ public class BillDetailsActivity extends AppCompatActivity {
         Date createdAt = bill.getCreatedAt();
         String timeAgo = BillParse.calculateTimeAgo(createdAt);
         tvTimeStampDetails.setText(timeAgo);
+
+        // Creates the checkboxes to help user determine which people have paid
+        createCheckboxes();
     }
 
 
@@ -71,13 +70,16 @@ public class BillDetailsActivity extends AppCompatActivity {
 
         // Retrieves the status of the boxes which are checked/unchecked from Parse
         List<Boolean> currentSelectedIndices = bill.getSelectedIndices();
+
         // Only initializes a list of Booleans if user has not checked any boxes
         if (!containsTrue(currentSelectedIndices)) {
             // Initialize the array with false's
             Boolean[] initializedArray = new Boolean[numPeople];
             Arrays.fill(initializedArray, false);
+
             // Replace the array with a list
             List<Boolean> initializedList = new ArrayList<>(Arrays.asList(initializedArray));
+
             // Update the status of the checkboxes in Parse
             bill.setSelectedIndices(initializedList);
             bill.saveInBackground(e -> {
@@ -87,14 +89,16 @@ public class BillDetailsActivity extends AppCompatActivity {
             });
         }
 
-        // Programmatically adds numPeople number of checkboxes
+        // Programmatically adds numPeople number of checkboxes to each bill
         addDynamicCheckboxes(numPeople);
     }
 
     private List<String> getNames(String amountsOwed) {
         List<String> namesOfPeople = new ArrayList<>();
+
         // Splits the string by line
         String[] eachLine = amountsOwed.split("\n");
+
         // Adds the first word of each line to namesOfPeople
         for (String line : eachLine) {
             String name = line.split(" ")[0];
@@ -128,35 +132,35 @@ public class BillDetailsActivity extends AppCompatActivity {
             checkbox.setTypeface(ResourcesCompat.getFont(this, R.font.lemon_milk_light));
 
             int finalI = i;
+
+            // Used to ensure the UI is correctly showcasing whether a checkbox is checked
             boolean isChecked = bill.getSelectedIndices().get(finalI);
             checkbox.setChecked(isChecked);
 
             // Checks to see if a checkbox was clicked or not
-            checkbox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean checked = bill.getSelectedIndices().get(finalI);
-                    // Set the UI to display the check or uncheck
-                    if (checked) {
-                        checkbox.setChecked(false);
-                        checked = false;
-                    }
-                    else {
-                        checkbox.setChecked(true);
-                        checked = true;
-                    }
-                    // Update the BillItem bill
-                    billItem.toggleCheckbox(finalI, checked);
-                    // Update list of selected indices in Parse
-                    List<Boolean> currentParseSelectedIndices = bill.getSelectedIndices();
-                    currentParseSelectedIndices.set(finalI, checked);
-                    bill.setSelectedIndices(currentParseSelectedIndices);
-                    bill.saveInBackground(e -> {
-                        if (e != null) {
-                            Toast.makeText(BillDetailsActivity.this, "Error while saving to Parse!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            checkbox.setOnClickListener(v -> {
+                // Gets the current status of the checkbox
+                boolean checked = bill.getSelectedIndices().get(finalI);
+
+                // Set the UI to display the check or uncheck
+                if (checked) {
+                    checkbox.setChecked(false);
+                    checked = false;
                 }
+                else {
+                    checkbox.setChecked(true);
+                    checked = true;
+                }
+
+                // Update list of selected indices in Parse
+                List<Boolean> currentParseSelectedIndices = bill.getSelectedIndices();
+                currentParseSelectedIndices.set(finalI, checked);
+                bill.setSelectedIndices(currentParseSelectedIndices);
+                bill.saveInBackground(e -> {
+                    if (e != null) {
+                        Toast.makeText(BillDetailsActivity.this, "Error while saving to Parse!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             });
             llPricesContainer.addView(checkbox);
         }

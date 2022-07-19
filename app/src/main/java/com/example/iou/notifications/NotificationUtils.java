@@ -23,17 +23,14 @@ public class NotificationUtils extends ContextWrapper {
     private NotificationManager notificationManager;
     private final Context context;
 
-    // Constructor to be used when creating a notification
     public NotificationUtils(Context context) {
         super(context);
         this.context = context;
-
         // Creates a notification channel to send push notification
         createNotificationChannel();
     }
 
     public NotificationCompat.Builder setNotification(String title, String body) {
-
         // Sets the intent that will fire when a user clicks on the notification
         Intent resultIntent = new Intent(this, MainActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -74,23 +71,6 @@ public class NotificationUtils extends ContextWrapper {
 
     public void setNotificationTime(long milliSeconds)
     {
-        /*
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 51);
-        calendar.set(calendar.SECOND, 0);
-
-        Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-         */
-
         // Sets an intent to start the Broadcast Receiver
         Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -98,10 +78,6 @@ public class NotificationUtils extends ContextWrapper {
         // Sets the notification to appear after a certain amount of time
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, milliSeconds, pendingIntent);
-    }
-
-    public void setWelcomeNotificationTime(long milliSeconds) {
-
     }
 
 }
