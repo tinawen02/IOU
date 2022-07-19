@@ -74,7 +74,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
-        // Helps get the current location of the user
+        // Finds the current location of the user
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(GoogleMapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -111,7 +111,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                                 // Gets the position of a restaurant
                                 RestaurantItem restaurant = nearbyRestaurants.get(i);
                                 // Sets the pin on the map based on the status of the restaurant's hour of operation
-                                setRestaurantPin(restaurant, openPin, closedPin, noInfoPin);
+                                setRestaurantPin(restaurant, openPin, closedPin, noInfoPin, whereTo);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(GoogleMapsActivity.this, "Error while generating nearby pins!", Toast.LENGTH_SHORT).show();
@@ -152,23 +152,40 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userCoordinates, 13);
         mMap.animateCamera(cameraUpdate);
 
-        // Used to get the Google Maps API request given the API key
-        URL = String.format("https://maps.googleapis.com/maps/api/place/textsearch/json?location=%f,%f&radius=5000&query=%s&key=%s", latitude, longitude, whereTo, getString(R.string.MAPS_API_KEY));
+        if (whereTo.equals("")) {
+            URL = String.format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=5000&types=restaurant&key=%s", latitude, longitude, getString(R.string.MAPS_API_KEY));
+            System.out.println("URL " + URL);
+        } else {
+            // Used to get the Google Maps API request given the API key
+            URL = String.format("https://maps.googleapis.com/maps/api/place/textsearch/json?location=%f,%f&radius=5000&query=%s&key=%s", latitude, longitude, whereTo, getString(R.string.MAPS_API_KEY));
+        }
         return URL;
     }
 
     // Sets the pin on the map based on the status of the restaurant's hour of operation
-    private void setRestaurantPin(RestaurantItem restaurant, BitmapDescriptor openPin, BitmapDescriptor closedPin, BitmapDescriptor noInfoPin) {
+    private void setRestaurantPin(RestaurantItem restaurant, BitmapDescriptor openPin, BitmapDescriptor closedPin, BitmapDescriptor noInfoPin, String whereTo) {
         // Sets the longitude and latitude of the restaurant
         double restaurantLatitude = restaurant.getLatitude();
         double restaurantLongitude = restaurant.getLongitude();
         LatLng restaurantLocation = new LatLng(restaurantLatitude, restaurantLongitude);
 
-        // Creates a marker (pin) on the map
-        MarkerOptions markerOptions = new MarkerOptions()
-                .title(restaurant.getName())
-                .snippet(String.valueOf(restaurant.getAddress()))
-                .position(restaurantLocation);
+        MarkerOptions markerOptions;
+
+        // If the user has opted to search for a specific food, show the foods nearby
+        if (!(whereTo.equals(""))) {
+            // Creates a marker (pin) on the map
+             markerOptions = new MarkerOptions()
+                    .title(restaurant.getName())
+                     .snippet(String.valueOf(restaurant.getAddress()))
+                    .position(restaurantLocation);
+        // If the user has opted to go directly to the map, show all restaurants nearby
+        } else {
+            // Creates a marker (pin) on the map
+            markerOptions = new MarkerOptions()
+                    .title(restaurant.getName())
+                    .snippet(String.valueOf(restaurant.getVicinity()))
+                    .position(restaurantLocation);
+        }
 
         if (restaurant.isOpen() != null && restaurant.isOpen()) {
             // Sets a magenta pin if the restaurant is open

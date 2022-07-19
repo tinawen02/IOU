@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iou.MainActivity;
 import com.example.iou.R;
-import com.example.iou.notifications.NotificationUtils;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -43,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNotification();
                 toLogin();
             }
         });
@@ -57,11 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Creates a push notification
-    private void createNotification() {
-        NotificationUtils notificationUtils = new NotificationUtils(this);
-        notificationUtils.setNotificationTime();
-    }
+
 
     private void toLogin() {
         // Retrieves the username and password the user inputted

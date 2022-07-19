@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map"
@@ -7,3 +14,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".map.activities.GoogleMapsActivity" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:background="@color/white"
+     >
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        >-->
+<!--        -->
+<!--    </LinearLayout>-->
+        <TextView
+            android:id="@+id/magentaPin"
+            android:text="Magenta Pin: "
+            android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/orangePin"
+            android:text="Orange Pin: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/yellowPin"
+            android:text="Yellow Pin: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

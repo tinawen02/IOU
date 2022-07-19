@@ -18,12 +18,10 @@ import androidx.core.app.NotificationCompat;
 import com.example.iou.MainActivity;
 import com.example.iou.R;
 
-import java.util.Calendar;
-
 public class NotificationUtils extends ContextWrapper {
 
     private NotificationManager notificationManager;
-    private Context context;
+    private final Context context;
 
     // Constructor to be used when creating a notification
     public NotificationUtils(Context context) {
@@ -36,26 +34,30 @@ public class NotificationUtils extends ContextWrapper {
 
     public NotificationCompat.Builder setNotification(String title, String body) {
 
-        // Allows a user to click on a notification
+        // Sets the intent that will fire when a user clicks on the notification
         Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        // Sets the text, notification logo, and priority of the notification
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_KEY)
                 .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_MAX);
     }
 
     private void createNotificationChannel() {
 
+        // Only create a notification channel if the API is greater than 26
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_KEY, NOTIFICATION_CHANNEL_NAME_KEY, NotificationManager.IMPORTANCE_DEFAULT);
+
+            // Create the notification channel and set the priority
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_KEY, NOTIFICATION_CHANNEL_NAME_KEY, NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
-            // Register the channel with notification manager
+            // Register the channel with the system
             NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.createNotificationChannel(notificationChannel);
         }
@@ -64,16 +66,17 @@ public class NotificationUtils extends ContextWrapper {
     public NotificationManager getManager()
     {
         if(notificationManager == null) {
+            // Creates a NotificationManager to notify user of a notification in the background
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
-
         return notificationManager;
     }
 
-    public void setNotificationTime()
+    public void setNotificationTime(long milliSeconds)
     {
-        // TESTING NOTIFICATIONS
+        /*
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
         calendar.set(Calendar.HOUR_OF_DAY, 15);
         calendar.set(Calendar.MINUTE, 51);
         calendar.set(calendar.SECOND, 0);
@@ -83,8 +86,22 @@ public class NotificationUtils extends ContextWrapper {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+         */
+
+        // Sets an intent to start the Broadcast Receiver
+        Intent intent = new Intent(context, com.example.iou.notifications.NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Sets the notification to appear after a certain amount of time
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, milliSeconds, pendingIntent);
+    }
+
+    public void setWelcomeNotificationTime(long milliSeconds) {
+
     }
 
 }

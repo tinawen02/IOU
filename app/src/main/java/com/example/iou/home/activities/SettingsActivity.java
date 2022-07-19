@@ -45,7 +45,6 @@ public class SettingsActivity extends AppCompatActivity {
     // Logs out the user and brings the user back to the Login Activity
     private void logoutUser() {
         ParseUser.logOut();
-        ParseUser currentUser = ParseUser.getCurrentUser();
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
     }

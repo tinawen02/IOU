@@ -10,6 +10,7 @@ import java.util.List;
 public class RestaurantItem {
     private final String name;
     private final String address;
+    private final String vicinity;
     private final double rating;
     private final double latitude;
     private final double longitude;
@@ -17,13 +18,32 @@ public class RestaurantItem {
 
     public RestaurantItem(JSONObject jsonObject) throws JSONException {
         this.name = jsonObject.getString("name");
-        this.address = jsonObject.getString("formatted_address");
+
+
+        if (jsonObject.has("formatted_address")) {
+            this.address = jsonObject.getString("formatted_address");
+        } else {
+            this.address = null;
+        }
+
+        if (jsonObject.has("vicinity")) {
+            this.vicinity = jsonObject.getString("vicinity");
+        } else {
+            this.vicinity = null;
+        }
+
         this.latitude = jsonObject.getJSONObject("geometry").getJSONObject("location").getDouble("lat");
         this.longitude = jsonObject.getJSONObject("geometry").getJSONObject("location").getDouble("lng");
 
         // Checks to see if a restaurant is open or not
         if (jsonObject.has("opening_hours")) {
-            this.isOpen = jsonObject.getJSONObject("opening_hours").getBoolean("open_now");
+            JSONObject openingHours = jsonObject.getJSONObject("opening_hours");
+            if (openingHours.has("open_now")) {
+                this.isOpen = jsonObject.getJSONObject("opening_hours").getBoolean("open_now");
+            } else {
+                this.isOpen = false;
+            }
+
         } else {
             this.isOpen = null;
         }
@@ -46,6 +66,9 @@ public class RestaurantItem {
     }
     public String getAddress() {
         return address;
+    }
+    public String getVicinity() {
+        return vicinity;
     }
     public double getRating() {
         return rating;

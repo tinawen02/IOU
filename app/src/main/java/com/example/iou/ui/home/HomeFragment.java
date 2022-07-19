@@ -56,9 +56,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // TODO: unwrap the splitBill parcel
-
-
         rvBills = view.findViewById(R.id.rvBills);
 
         // Create the adapter
@@ -120,7 +117,6 @@ public class HomeFragment extends Fragment {
         // Specify what type of data we want to query - Post.class
         ParseQuery<BillParse> query = ParseQuery.getQuery(BillParse.class);
 
-
         // Include data referred by user key
         query.include(BillParse.KEY_USER);
 
@@ -161,5 +157,13 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    // Used to help refresh the checkboxes from the BillDetailsActivity
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.clear();
+        queryPosts(null, 0);
     }
 }
