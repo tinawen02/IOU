@@ -142,10 +142,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         // Add a pin at user's current location
         final LatLng userCoordinates = new LatLng(latitude, longitude);
 
-        // TODO: fix legend
         Marker myLocation = mMap.addMarker(new MarkerOptions().position(userCoordinates)
-                .title("Restaurant Status")
-                .snippet("Magenta = Open\n Orange = Closed\n Yellow = No Information"));
+                .title("You are here")
+                .snippet("Find restaurants near you by exploring the map!"));
 
         myLocation.showInfoWindow();
 
