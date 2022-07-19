@@ -1,5 +1,6 @@
 package com.example.iou;
 
+import static com.example.iou.IOUKeys.FRAGMENT_KEY;
 import static com.example.iou.IOUKeys.IS_FIRST_TIME_KEY;
 
 import android.annotation.SuppressLint;
@@ -17,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.iou.databinding.ActivityMainBinding;
 import com.example.iou.home.activities.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.onesignal.OneSignal;
 
 import org.parceler.Parcels;
 
@@ -31,14 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("oncreate");
         super.onCreate(savedInstanceState);
-
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
-        OneSignal.initWithContext(this);
-        OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         // Unwrap the boolean to see if it is the first time user is logging in
         Boolean isFirstTime = Parcels.unwrap(getIntent().getParcelableExtra(IS_FIRST_TIME_KEY));
+
+
 
         // Runs the tutorial
         /*
@@ -72,7 +71,25 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("MainActivity was shown");
     }
 
-
+    private void toWhichFragment(Bundle extras) {
+        System.out.println("got here 1");
+        if (extras != null) {
+            System.out.println("go here 2");
+            String fragmentToGoTo = extras.getString(FRAGMENT_KEY);
+            System.out.println("got here 3:" + fragmentToGoTo);
+            if (fragmentToGoTo != null) {
+                System.out.println("got here 4:" + fragmentToGoTo);
+                if (fragmentToGoTo.equals("map")) {
+                    viewPager.setCurrentItem(2);
+                    System.out.println("Going to map");
+                } else if (fragmentToGoTo.equals("bill")) {
+                    viewPager.setCurrentItem(1);
+                } else {
+                    viewPager.setCurrentItem(0);
+                }
+            }
+        }
+    }
 
     private void runTutorial() {
         // Make it so that a user cannot click between fragments (tutorial is mandatory)
@@ -153,16 +170,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("MainActivity", "getting destroyed");
-    }
-
-    @Override
-    protected void onRestart() {
+    protected void onStart() {
+        super.onStart();
         super.onRestart();
+        // Checks to see which fragment to go to
+        Bundle extras = getIntent().getExtras();
+        toWhichFragment(extras);
 
-        Log.i("MainActivity", "getting restarted");
+        Log.i("MainActivity", "getting started");
     }
 
     @Override
@@ -179,5 +194,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("MainActivity", "getting paused");
     }
+
 
 }
