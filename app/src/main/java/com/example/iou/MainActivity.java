@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.iou.databinding.ActivityMainBinding;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private BottomNavigationView mainBottomNav;
     private ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void runTutorial() {
         // Make it so that a user cannot click between fragments (tutorial is mandatory)
-            // Disable the bottom navigation bar (visually looks the same)
+        // Disable the bottom navigation bar (visually looks the same)
         //
 
     }
@@ -169,30 +171,54 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
-        super.onRestart();
         // Checks to see which fragment to go to
-        Bundle extras = getIntent().getExtras();
-        toWhichFragment(extras);
+        //Bundle extras = getIntent().getExtras();
+        //toWhichFragment(extras);
 
         Log.i("MainActivity", "getting started");
     }
 
+     */
+
+
     @Override
-    protected void onStop() {
-        super.onStop();
-
-        Log.i("MainActivity", "getting stopped");
-
+    protected void onNewIntent(Intent intent)
+    {
+        Log.i("MainActivity","onNewIntent");
+        super.onNewIntent(intent);
+        setIntent(intent);//needed so that getIntent() doesn't return null inside onResume()
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
 
-        Log.i("MainActivity", "getting paused");
+        // Test if a Notification caused this activity to launch - if so then select the first tab
+        // NOTE: we get here from a notification by using Intent.FLAG_ACTIVITY_NEW_TASK
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+        {
+            final String fragmentToGoTo = extras.getString(FRAGMENT_KEY);
+            System.out.println(fragmentToGoTo);
+            if (fragmentToGoTo != null) {
+                if (fragmentToGoTo.equals("map")) {
+                    viewPager.setCurrentItem(2);
+                    System.out.println("Going to map");
+
+
+                } else if (fragmentToGoTo.equals("bill")) {
+                    viewPager.setCurrentItem(1);
+                } else {
+                    viewPager.setCurrentItem(0);
+                }
+                getIntent().removeExtra(FRAGMENT_KEY);
+                NotificationManagerCompat.from(this).cancelAll();
+            }
+        }
     }
 
 

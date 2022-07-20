@@ -153,7 +153,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         if (whereTo.equals("")) {
             URL = String.format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=5000&types=restaurant&key=%s", latitude, longitude, getString(R.string.MAPS_API_KEY));
-            System.out.println("URL " + URL);
         } else {
             // Used to get the Google Maps API request given the API key
             URL = String.format("https://maps.googleapis.com/maps/api/place/textsearch/json?location=%f,%f&radius=5000&query=%s&key=%s", latitude, longitude, whereTo, getString(R.string.MAPS_API_KEY));

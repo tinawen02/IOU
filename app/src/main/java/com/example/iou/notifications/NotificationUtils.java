@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -58,9 +59,12 @@ public class NotificationUtils extends ContextWrapper {
     }
 
     private void initializeIntent() {
+
         mapIntent = new Intent(this, MainActivity.class);
         mapIntent.putExtra(FRAGMENT_KEY, "map");
-        //mapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Log.i("NotificationUtils", "map");
+        mapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
     }
 
     private void createNotificationChannel() {
