@@ -18,6 +18,7 @@ import com.example.iou.bill.models.BillParse;
 
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class BillDetailsActivity extends AppCompatActivity {
     private LinearLayout llPricesContainer;
     private final BillItem billItem = new BillItem();
     private BillParse bill;
+    private static final DecimalFormat decimalFormat = new DecimalFormat("$0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class BillDetailsActivity extends AppCompatActivity {
         llPricesContainer = findViewById(R.id.llPricesContainer);
 
         tvLocationDetails.setText(bill.getLocation());
-        tvBillAmountDetails.setText(String.valueOf(bill.getFinalBill()));
+        tvBillAmountDetails.setText(decimalFormat.format(bill.getFinalBill()));
         tvAmountsOwedDetails.setText(bill.getAmountsOwed());
 
         // Calculate relative date of the post
