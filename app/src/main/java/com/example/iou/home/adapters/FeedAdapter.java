@@ -16,6 +16,7 @@ import com.example.iou.home.activities.BillDetailsActivity;
 
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     private final Context context;
     private final List<BillParse> bills;
+    private static final DecimalFormat decimalFormat = new DecimalFormat("$0.00");
 
     public FeedAdapter(Context context, List<BillParse> bills) {
         this.context = context;
@@ -70,7 +72,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
             // Bind the post data to the view elements
             tvLocationFeed.setText(bill.getLocation());
-            tvBillAmountFeed.setText("Total Bill: $" + String.valueOf(bill.getFinalBill()));
+            tvBillAmountFeed.setText("Total Bill: " + decimalFormat.format(bill.getFinalBill()));
             tvAmountsOwedFeed.setText(bill.getAmountsOwed());
 
             // Calculate relative date of the post

@@ -96,5 +96,4 @@ public class BillParse extends ParseObject {
 
         return "";
     }
-
 }

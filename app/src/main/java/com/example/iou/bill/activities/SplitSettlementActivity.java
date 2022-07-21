@@ -26,6 +26,8 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -46,7 +48,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
     private KonfettiView konfettiView;
     private Shape.DrawableShape drawableShape = null;
     private final BillParse bill = new BillParse();
-    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private static final DecimalFormat decimalFormat = new DecimalFormat("$0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +67,13 @@ public class SplitSettlementActivity extends AppCompatActivity {
 
         // Set the views with specific information regarding the transaction
         tvLocation.setText(splitBill.getRestaurantName());
-        tvBillAmount.setText(String.valueOf(splitBill.getBillTotal()));
+        tvBillAmount.setText(decimalFormat.format((splitBill.getBillTotal())));
 
         // Build the string of names of people and amounts each person owes
         StringBuilder str = new StringBuilder();
         for (String name : amountsOwed.keySet()) {
                 String value = decimalFormat.format(amountsOwed.get(name));
-                str.append(name + " owes $" + value + "\n");
+                str.append(name + " owes " + value + "\n");
             }
 
         // Set the names of people and amounts each person owes
@@ -80,14 +82,20 @@ public class SplitSettlementActivity extends AppCompatActivity {
         // Update BillParse information to store in Parse
         bill.setLocation(splitBill.getRestaurantName());
         bill.setUser(ParseUser.getCurrentUser());
-        bill.setFinalBill(splitBill.getBillTotal());
+
+
+        BigDecimal bd = new BigDecimal(splitBill.getBillTotal()).setScale(2, RoundingMode.HALF_UP);
+        double newInput = bd.doubleValue();
+        bill.setFinalBill(newInput);
+
+        //bill.setFinalBill(splitBill.getBillTotal());
         bill.setAmountsOwed(str.toString());
 
         bill.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Toast.makeText(SplitSettlementActivity.this, "Error while saving!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SplitSettlementActivity.this, "Make sure you checked the names of people!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

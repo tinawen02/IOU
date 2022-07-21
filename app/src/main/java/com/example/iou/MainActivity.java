@@ -6,13 +6,13 @@ import static com.example.iou.IOUKeys.IS_FIRST_TIME_KEY;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.iou.databinding.ActivityMainBinding;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mainBottomNav;
     private ViewPager viewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("oncreate");
@@ -37,14 +38,11 @@ public class MainActivity extends AppCompatActivity {
         // Unwrap the boolean to see if it is the first time user is logging in
         Boolean isFirstTime = Parcels.unwrap(getIntent().getParcelableExtra(IS_FIRST_TIME_KEY));
 
-
-
         // Runs the tutorial
         /*
         if (isFirstTime) {
             runTutorial();
         }
-
          */
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -72,28 +70,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toWhichFragment(Bundle extras) {
-        System.out.println("got here 1");
         if (extras != null) {
-            System.out.println("go here 2");
+            // Retrieves the fragment from the intent
             String fragmentToGoTo = extras.getString(FRAGMENT_KEY);
-            System.out.println("got here 3:" + fragmentToGoTo);
+
+            // Checks to see which fragment to navigate to
             if (fragmentToGoTo != null) {
-                System.out.println("got here 4:" + fragmentToGoTo);
                 if (fragmentToGoTo.equals("map")) {
                     viewPager.setCurrentItem(2);
-                    System.out.println("Going to map");
                 } else if (fragmentToGoTo.equals("bill")) {
                     viewPager.setCurrentItem(1);
                 } else {
                     viewPager.setCurrentItem(0);
                 }
+                // Removes the extra, so the user is not always brought to a fragment
+                getIntent().removeExtra(FRAGMENT_KEY);
+                // Cancels the notification once a user clicks on it
+                NotificationManagerCompat.from(this).cancelAll();
             }
         }
     }
 
     private void runTutorial() {
         // Make it so that a user cannot click between fragments (tutorial is mandatory)
-            // Disable the bottom navigation bar (visually looks the same)
+        // Disable the bottom navigation bar (visually looks the same)
         //
 
     }
@@ -170,30 +170,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        super.onRestart();
-        // Checks to see which fragment to go to
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        // Ensures getIntent() doesn't return null inside onResume()
+        setIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Unwraps the bundle from the intent to determine which fragment to go to
         Bundle extras = getIntent().getExtras();
         toWhichFragment(extras);
-
-        Log.i("MainActivity", "getting started");
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        Log.i("MainActivity", "getting stopped");
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        Log.i("MainActivity", "getting paused");
-    }
-
-
 }
