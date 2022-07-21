@@ -6,7 +6,6 @@ import static com.example.iou.IOUKeys.IS_FIRST_TIME_KEY;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -39,14 +38,11 @@ public class MainActivity extends AppCompatActivity {
         // Unwrap the boolean to see if it is the first time user is logging in
         Boolean isFirstTime = Parcels.unwrap(getIntent().getParcelableExtra(IS_FIRST_TIME_KEY));
 
-
-
         // Runs the tutorial
         /*
         if (isFirstTime) {
             runTutorial();
         }
-
          */
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -74,21 +70,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toWhichFragment(Bundle extras) {
-        System.out.println("got here 1");
         if (extras != null) {
-            System.out.println("go here 2");
+            // Retrieves the fragment from the intent
             String fragmentToGoTo = extras.getString(FRAGMENT_KEY);
-            System.out.println("got here 3:" + fragmentToGoTo);
+
+            // Checks to see which fragment to navigate to
             if (fragmentToGoTo != null) {
-                System.out.println("got here 4:" + fragmentToGoTo);
                 if (fragmentToGoTo.equals("map")) {
                     viewPager.setCurrentItem(2);
-                    System.out.println("Going to map");
                 } else if (fragmentToGoTo.equals("bill")) {
                     viewPager.setCurrentItem(1);
                 } else {
                     viewPager.setCurrentItem(0);
                 }
+                // Removes the extra, so the user is not always brought to a fragment
+                getIntent().removeExtra(FRAGMENT_KEY);
+                // Cancels the notification once a user clicks on it
+                NotificationManagerCompat.from(this).cancelAll();
             }
         }
     }
@@ -171,55 +169,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Checks to see which fragment to go to
-        //Bundle extras = getIntent().getExtras();
-        //toWhichFragment(extras);
-
-        Log.i("MainActivity", "getting started");
-    }
-
-     */
-
-
     @Override
     protected void onNewIntent(Intent intent)
     {
-        Log.i("MainActivity","onNewIntent");
         super.onNewIntent(intent);
-        setIntent(intent);//needed so that getIntent() doesn't return null inside onResume()
+        // Ensures getIntent() doesn't return null inside onResume()
+        setIntent(intent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // Test if a Notification caused this activity to launch - if so then select the first tab
-        // NOTE: we get here from a notification by using Intent.FLAG_ACTIVITY_NEW_TASK
+        // Unwraps the bundle from the intent to determine which fragment to go to
         Bundle extras = getIntent().getExtras();
-        if (extras != null)
-        {
-            final String fragmentToGoTo = extras.getString(FRAGMENT_KEY);
-            System.out.println(fragmentToGoTo);
-            if (fragmentToGoTo != null) {
-                if (fragmentToGoTo.equals("map")) {
-                    viewPager.setCurrentItem(2);
-                    System.out.println("Going to map");
-
-
-                } else if (fragmentToGoTo.equals("bill")) {
-                    viewPager.setCurrentItem(1);
-                } else {
-                    viewPager.setCurrentItem(0);
-                }
-                getIntent().removeExtra(FRAGMENT_KEY);
-                NotificationManagerCompat.from(this).cancelAll();
-            }
-        }
+        toWhichFragment(extras);
     }
-
-
 }
