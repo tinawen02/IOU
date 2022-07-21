@@ -17,7 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.iou.databinding.ActivityMainBinding;
 import com.example.iou.home.activities.SettingsActivity;
+import com.example.iou.tutorial.activities.TutorialActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.onesignal.OneSignal;
 
 import org.parceler.Parcels;
 
@@ -32,18 +34,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("oncreate");
         super.onCreate(savedInstanceState);
+
+        // Used for debugging
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
+        // Initialize the OneSignal services with the application context
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
 
         // Unwrap the boolean to see if it is the first time user is logging in
         Boolean isFirstTime = Parcels.unwrap(getIntent().getParcelableExtra(IS_FIRST_TIME_KEY));
 
         // Runs the tutorial
-        /*
-        if (isFirstTime) {
-            runTutorial();
+        if (isFirstTime != null) {
+            if (isFirstTime) {
+                runTutorial();
+                isFirstTime = false;
+            }
         }
-         */
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -92,10 +101,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void runTutorial() {
-        // Make it so that a user cannot click between fragments (tutorial is mandatory)
-        // Disable the bottom navigation bar (visually looks the same)
-        //
 
+        Intent i = new Intent(this, TutorialActivity.class);
+        startActivity(i);
     }
 
     private void swipeBetweenViews(ViewPager viewPager) {
@@ -148,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Defaults to the home fragment
-        mainBottomNav.setSelectedItemId(R.id.navigation_home);
+        mainBottomNav.setSelectedItemId(R.id.navigation_bill);
     }
 
     // Displays the name in the action bar
