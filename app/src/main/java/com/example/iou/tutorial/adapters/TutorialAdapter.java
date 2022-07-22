@@ -32,9 +32,9 @@ public class TutorialAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layoutScreen = layoutInflater.inflate(R.layout.item_tutorial,null);
 
-        final ImageView image = layoutScreen.findViewById(R.id.image);
-        final TextView title = layoutScreen.findViewById(R.id.title);
-        final TextView description = layoutScreen.findViewById(R.id.description);
+        final TextView title = layoutScreen.findViewById(R.id.tvTitle);
+        final TextView description = layoutScreen.findViewById(R.id.tvDescription);
+        final ImageView image = layoutScreen.findViewById(R.id.ivImage);
 
         title.setText(tutorialItems.get(position).getTitle());
         description.setText(tutorialItems.get(position).getDescription());
