@@ -49,7 +49,7 @@ public class TutorialActivity extends AppCompatActivity {
 
         // Populate the tutorial screens
         List<TutorialItem> items = new ArrayList<>();
-        items.add(new TutorialItem("Create a Bill","Select 'Split by Item' to split your bill based on item ordered. Simply check the names of the people who ordered each item and input the bill before taxes/discounts/tips and after taxes/discounts/tips!",R.drawable.bill_tutorial));
+        items.add(new TutorialItem("Create a Bill","Select 'Split by Item' to split your bill based on item ordered. Simply check the names of the people who ordered each item!",R.drawable.bill_tutorial));
         items.add(new TutorialItem("Explore the Map","Find restaurants near you to explore. Are you craving sushi? Just type 'Sushi' into the search bar, and we'll get you all the delicious options!", R.drawable.map_tutorial));
         items.add(new TutorialItem("View your History","Explore your Home feed to view your previous transactions. Check names off as your friends pay you back to keep track of your bills!",R.drawable.home_tutorial));
 
