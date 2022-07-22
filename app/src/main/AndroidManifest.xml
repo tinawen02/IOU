@@ -36,6 +36,9 @@
         android:theme="@style/Theme.IOU"
         tools:targetApi="31">
         <activity
+            android:name=".tutorial.activities.TutorialActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.activities.SettingsActivity"
             android:exported="false" />
 
@@ -89,7 +92,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
 
         <uses-library
             android:name="com.google.android.maps"
@@ -99,7 +102,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <receiver android:name=".notifications.NotificationReceiver"/>
+        <receiver android:name=".notifications.NotificationReceiver" />
     </application>
 
 </manifest>

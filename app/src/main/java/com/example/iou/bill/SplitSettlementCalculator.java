@@ -40,7 +40,7 @@ public class SplitSettlementCalculator {
                 // Check to see if the index of checkedList is true (said person should pay)
                 if (checkedList.valueAt(i)) {
                     // Sets the key value of this iteration
-                    Integer keyVal = checkedList.keyAt(i);
+                    int keyVal = checkedList.keyAt(i);
                     String nameKey = item.getPeople().get(keyVal);
 
                     // Check to see if a key already exists

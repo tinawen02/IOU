@@ -6,17 +6,28 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1255" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1335" />
+        <entry key="app/src/main/res/drawable/btn_gradient_style.xml" value="0.354" />
+        <entry key="app/src/main/res/drawable/gradient_animation123.xml" value="0.1285" />
+        <entry key="app/src/main/res/drawable/gradient_background1.xml" value="0.1285" />
+        <entry key="app/src/main/res/drawable/gradient_background2.xml" value="0.1285" />
+        <entry key="app/src/main/res/drawable/gradient_background3.xml" value="0.1285" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.2825" />
+        <entry key="app/src/main/res/drawable/ic_baseline_drag_indicator_24.xml" value="0.2825" />
         <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1255" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2145" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/indicator_default.xml" value="0.354" />
+        <entry key="app/src/main/res/drawable/indicator_selected.xml" value="0.354" />
+        <entry key="app/src/main/res/drawable/indicator_selector.xml" value="0.354" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.196" />
         <entry key="app/src/main/res/layout/activity_bill_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_custom_window_adapter.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/activity_dividing_items.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_even_information.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_even_settlement.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_google_maps.xml" value="0.1018463134765625" />
+        <entry key="app/src/main/res/layout/activity_google_maps.xml" value="0.1989288330078125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19991912841796877" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2884963768115942" />
@@ -27,6 +38,7 @@
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/activity_split_information.xml" value="0.25282440185546884" />
         <entry key="app/src/main/res/layout/activity_split_settlement.xml" value="0.16576086956521738" />
+        <entry key="app/src/main/res/layout/activity_tutorial.xml" value="0.2857789855072464" />
         <entry key="app/src/main/res/layout/activity_yelp.xml" value="0.26132246376811596" />
         <entry key="app/src/main/res/layout/bill_item.xml" value="0.3066123188405797" />
         <entry key="app/src/main/res/layout/fragment_bill.xml" value="0.21964111328125002" />
@@ -35,6 +47,8 @@
         <entry key="app/src/main/res/layout/fragment_tutorial.xml" value="0.15602836879432624" />
         <entry key="app/src/main/res/layout/item_bill.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/item_bill_feed.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/item_tutorial.xml" value="0.2288135593220339" />
+        <entry key="app/src/main/res/layout/layout_screen.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/message_item.xml" value="0.1897644927536232" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/menu/setting.xml" value="0.359375" />

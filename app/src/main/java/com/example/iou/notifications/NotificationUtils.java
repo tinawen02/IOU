@@ -33,15 +33,13 @@ public class NotificationUtils extends ContextWrapper {
     public NotificationCompat.Builder setNotification(String title, String body) {
         // Sets the intent that will fire when a user clicks on the notification
         Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.putExtra(FRAGMENT_KEY, "map");
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Allows a user to click the map action
-        PendingIntent mapPendingIntent = initializeMapIntent();
 
         // Allows a user to click on the bill action
         PendingIntent billPendingIntent = initializeBillIntent();
 
-        androidx.core.app.NotificationCompat.Action mapAction = new NotificationCompat.Action(R.drawable.ic_notifications_black_24dp, "Go to Map", mapPendingIntent);
         androidx.core.app.NotificationCompat.Action billAction = new NotificationCompat.Action(R.drawable.ic_notifications_black_24dp, "Create a Bill", billPendingIntent);
 
         // Sets the text, notification logo, and priority of the notification
@@ -51,21 +49,8 @@ public class NotificationUtils extends ContextWrapper {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
-                .addAction(mapAction)
                 .addAction(billAction)
                 .setPriority(NotificationCompat.PRIORITY_MAX);
-    }
-
-    private PendingIntent initializeMapIntent() {
-
-        // Creates an action that directs the user to the map fragment
-        Intent mapIntent = new Intent(this, MainActivity.class);
-        mapIntent.putExtra(FRAGMENT_KEY, "map");
-        mapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-        // Creates a pending intent that waits upon the user clicking the map action
-
-        return PendingIntent.getActivity(this, 1, mapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private PendingIntent initializeBillIntent() {
