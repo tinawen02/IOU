@@ -31,6 +31,17 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
+        android:id="@+id/btnTutorial"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:text="View Tutorial"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAppDescription"/>
+
+    <Button
         android:id="@+id/btnLogout"
         android:layout_width="130dp"
         android:layout_height="50dp"

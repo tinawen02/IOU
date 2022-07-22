@@ -10,11 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iou.R;
 import com.example.iou.activities.LoginActivity;
+import com.example.iou.tutorial.activities.TutorialActivity;
 import com.parse.ParseUser;
 
 public class SettingsActivity extends AppCompatActivity {
-
-    private TextView tvAppDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +21,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         final Button btnLogout = findViewById(R.id.btnLogout);
-        tvAppDescription = findViewById(R.id.tvAppDescription);
+        final Button btnTutorial = findViewById(R.id.btnTutorial);
+        final TextView tvAppDescription = findViewById(R.id.tvAppDescription);
 
         // Set the description of the app
         tvAppDescription.setText("Let's say " +
@@ -40,12 +40,27 @@ public class SettingsActivity extends AppCompatActivity {
                 logoutUser();
             }
         });
+
+        // Allows user to view tutorial
+        btnTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewTutorial();
+            }
+        });
     }
 
     // Logs out the user and brings the user back to the Login Activity
     private void logoutUser() {
         ParseUser.logOut();
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private void viewTutorial() {
+        ParseUser.logOut();
+        Intent intent = new Intent(this, TutorialActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
