@@ -57,11 +57,9 @@ public class SplitInformationActivity extends AppCompatActivity {
 
         // Converting items to to a List of doubles
         List<Double> items = new ArrayList<>();
-
         for (int i = 0; i < itemsArray.length; i++) {
-            items.add(Double.valueOf(itemsArray[i]));
+            items.add(Double.valueOf((itemsArray[i])));
         }
-
 
         // Converting people to a List of Strings
         List<String> people = new ArrayList<>();
