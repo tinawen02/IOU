@@ -24,7 +24,7 @@ public class BillItemAdapter extends RecyclerView.Adapter<BillItemAdapter.ViewHo
     private final Context context;
     private final List<BillItem> bills;
     private final SplitBill splitBill;
-    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private static final DecimalFormat decimalFormat = new DecimalFormat("$0.00");
 
     public BillItemAdapter(Context context, List<BillItem> bills, SplitBill splitBill) {
         this.context = context;

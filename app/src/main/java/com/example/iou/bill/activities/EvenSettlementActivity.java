@@ -24,6 +24,7 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +42,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
     private KonfettiView konfettiView;
     private Shape.DrawableShape drawableShape = null;
     private final BillParse bill = new BillParse();
+    private static final DecimalFormat decimalFormat = new DecimalFormat("$0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
 
         // Set the views with specific information regarding the transaction
         tvLocationEven.setText(splitBill.getRestaurantName());
-        tvBillAmountEven.setText("Total BillParse: " + String.valueOf(splitBill.getBillTotal()));
+        tvBillAmountEven.setText("Total Bill: " + decimalFormat.format(splitBill.getBillTotal()));
 
         // Calculate the amounts each individual owes
         int numPeople = splitBill.getPeople().size();
@@ -68,7 +70,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
         StringBuilder str = new StringBuilder();
 
         for (String name : splitBill.getPeople()) {
-            str.append(name + " owes $" + amountOwed + "\n");
+            str.append(name + " owes " + decimalFormat.format(amountOwed) + "\n");
         }
 
         // Set the names of people and amounts each person owes
@@ -143,7 +145,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
                 new PartyFactory(emitterConfig)
                         .spread(360)
                         .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
-                        .colors(Arrays.asList(0xfce18a, 0xff726d, 0xf4306d, 0xb48def))
+                        .colors(Arrays.asList(0xF7E0FF, 0xA865C9, 0xff8c00, 0xfed8b1))
                         .setSpeedBetween(0f, 30f)
                         .position(new Position.Relative(0.5, 0.3))
                         .build()
