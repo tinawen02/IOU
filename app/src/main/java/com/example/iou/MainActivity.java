@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
         // Swipes between the icons in the bottom navigation view
         setUpBottomViewNavigation();
 
-
-        System.out.println("MainActivity was shown");
     }
 
     private void toWhichFragment(Bundle extras) {

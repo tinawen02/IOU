@@ -6,6 +6,7 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1255" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1335" />
+        <entry key="app/src/main/res/drawable/border.xml" value="0.227" />
         <entry key="app/src/main/res/drawable/btn_gradient_style.xml" value="0.354" />
         <entry key="app/src/main/res/drawable/gradient_animation123.xml" value="0.1285" />
         <entry key="app/src/main/res/drawable/gradient_background1.xml" value="0.1285" />
@@ -47,8 +48,8 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1808349609375" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.11730072463768115" />
         <entry key="app/src/main/res/layout/fragment_tutorial.xml" value="0.15602836879432624" />
-        <entry key="app/src/main/res/layout/item_bill.xml" value="0.178125" />
-        <entry key="app/src/main/res/layout/item_bill_feed.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/item_bill.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_bill_feed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_tutorial.xml" value="0.2288135593220339" />
         <entry key="app/src/main/res/layout/layout_screen.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/message_item.xml" value="0.1897644927536232" />

@@ -40,7 +40,7 @@ public class NotificationUtils extends ContextWrapper {
         // Allows a user to click on the bill action
         PendingIntent billPendingIntent = initializeBillIntent();
 
-        androidx.core.app.NotificationCompat.Action billAction = new NotificationCompat.Action(R.drawable.ic_notifications_black_24dp, "Create a Bill", billPendingIntent);
+        NotificationCompat.Action billAction = new NotificationCompat.Action(R.drawable.ic_notifications_black_24dp, "Create a Bill", billPendingIntent);
 
         // Sets the text, notification logo, and priority of the notification
         return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_KEY)
