@@ -22,6 +22,7 @@
         <entry key="app/src/main/res/drawable/indicator_default.xml" value="0.354" />
         <entry key="app/src/main/res/drawable/indicator_selected.xml" value="0.354" />
         <entry key="app/src/main/res/drawable/indicator_selector.xml" value="0.354" />
+        <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.221" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.196" />
         <entry key="app/src/main/res/layout/activity_bill_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_custom_window_adapter.xml" value="0.18072916666666666" />
@@ -65,7 +66,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.6736905408122983" />
+        <option name="scale" value="0.25282440185546884" />
       </ProjectState>
     </option>
   </component>

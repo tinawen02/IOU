@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bill.activities.SplitSettlementActivity">
+    tools:context=".bill.activities.SplitSettlementActivity"
+    android:background="@color/background_light_purple">
 
     <ImageView
         android:id="@+id/ivIOULogoSettlement"
@@ -15,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iou_logo_purple" />
+        app:srcCompat="@drawable/iou_logo_transparant" />
 
     <TextView
         android:id="@+id/tvLocation"

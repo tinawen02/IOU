@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="16dp"
-    tools:context=".activities.LoginActivity">
+    android:padding="16dp"
+    tools:context=".activities.LoginActivity"
+    android:background="@color/background_light_purple">
 
     <ImageView
         android:id="@+id/ivLoginLogo"
@@ -17,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iou_logo_purple" />
+        app:srcCompat="@drawable/iou_logo_transparant" />
 
     <EditText
         android:id="@+id/etUsername"
