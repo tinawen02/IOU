@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1335" />
         <entry key="app/src/main/res/drawable/border.xml" value="0.227" />
         <entry key="app/src/main/res/drawable/btn_gradient_style.xml" value="0.354" />
+        <entry key="app/src/main/res/drawable/fade_in.xml" value="0.2365" />
         <entry key="app/src/main/res/drawable/gradient_animation123.xml" value="0.1285" />
         <entry key="app/src/main/res/drawable/gradient_background1.xml" value="0.1285" />
         <entry key="app/src/main/res/drawable/gradient_background2.xml" value="0.1285" />
@@ -28,14 +29,14 @@
         <entry key="app/src/main/res/layout/activity_custom_window_adapter.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/activity_dividing_items.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_even_information.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/activity_even_settlement.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_even_settlement.xml" value="0.24753723144531248" />
         <entry key="app/src/main/res/layout/activity_google_maps.xml" value="0.1989288330078125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19991912841796877" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2884963768115942" />
         <entry key="app/src/main/res/layout/activity_map_demo.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_map_view.xml" value="0.22239583333333332" />
-        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.20179372197309417" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.12447916666666667" />
         <entry key="app/src/main/res/layout/activity_split_information.xml" value="0.25282440185546884" />

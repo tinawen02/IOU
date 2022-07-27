@@ -57,11 +57,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void createNotification() {
         NotificationUtils notificationUtils = new NotificationUtils(this);
 
-        // Determines how many seconds the notification should be sent after user login
+        // Determines how many seconds the notification should be sent after user login (one week)
         long currentTime = System.currentTimeMillis();
-
-        //TODO: change this into minutes
-        long numSeconds = 1000 * 3;
+        long numSeconds = 1000 * 60 * 1440 * 7;
         long triggerReminder = currentTime + numSeconds;
 
         notificationUtils.setNotificationTime(triggerReminder);

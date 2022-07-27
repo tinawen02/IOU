@@ -17,8 +17,7 @@
         android:textColor="@color/black"
         android:hint="@string/where_did_you_go"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent
-"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -33,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etLocationEven" />
-
 
     <EditText
         android:id="@+id/etFinalBillEven"

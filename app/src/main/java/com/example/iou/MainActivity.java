@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void runTutorial() {
-
         Intent i = new Intent(this, TutorialActivity.class);
         startActivity(i);
     }

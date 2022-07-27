@@ -47,7 +47,7 @@ public class BillDetailsActivity extends AppCompatActivity {
         llPricesContainer = findViewById(R.id.llPricesContainer);
 
         tvLocationDetails.setText(bill.getLocation());
-        tvBillAmountDetails.setText(decimalFormat.format(bill.getFinalBill()));
+        tvBillAmountDetails.setText("Total Bill: " + decimalFormat.format(bill.getFinalBill()));
         tvAmountsOwedDetails.setText(bill.getAmountsOwed());
 
         // Calculate relative date of the post
