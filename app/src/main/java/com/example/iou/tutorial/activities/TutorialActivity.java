@@ -117,7 +117,6 @@ public class TutorialActivity extends AppCompatActivity {
     private void toMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 
     // Shows the last screen before the MainActivity is loaded

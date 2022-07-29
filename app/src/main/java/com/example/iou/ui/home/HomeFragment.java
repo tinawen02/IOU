@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,8 +46,6 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
@@ -73,9 +70,6 @@ public class HomeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvBills.setLayoutManager(linearLayoutManager);
-
-        // Query the posts
-        queryPosts(null, 0);
 
         // Used to allow endless scrolling
         scrollListener = new com.example.iou.EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -123,7 +117,7 @@ public class HomeFragment extends Fragment {
         // Only includes posts from a logged in user
         query.whereEqualTo(BillParse.KEY_USER, ParseUser.getCurrentUser());
 
-        // Allows for user to vies more than 20 posts
+        // Allows for user to see more than 20 posts
         if(time != null) {
             query.whereLessThan(BillParse.KEY_CREATED_AT, time);
         }
@@ -163,6 +157,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        // Query the posts
         adapter.clear();
         queryPosts(null, 0);
     }

@@ -67,14 +67,14 @@ public class SplitSettlementActivity extends AppCompatActivity {
 
         // Set the views with specific information regarding the transaction
         tvLocation.setText(splitBill.getRestaurantName());
-        tvBillAmount.setText(decimalFormat.format((splitBill.getBillTotal())));
+        tvBillAmount.setText("Total Bill: " + decimalFormat.format((splitBill.getBillTotal())));
 
         // Build the string of names of people and amounts each person owes
         StringBuilder str = new StringBuilder();
         for (String name : amountsOwed.keySet()) {
-                String value = decimalFormat.format(amountsOwed.get(name));
-                str.append(name + " owes " + value + "\n");
-            }
+            String value = decimalFormat.format(amountsOwed.get(name));
+            str.append(name + " owes " + value + "\n");
+        }
 
         // Set the names of people and amounts each person owes
         tvAmountsOwed.setText(str);
@@ -157,7 +157,7 @@ public class SplitSettlementActivity extends AppCompatActivity {
                 new PartyFactory(emitterConfig)
                         .spread(360)
                         .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
-                        .colors(Arrays.asList(0xfce18a, 0xff726d, 0xf4306d, 0xb48def))
+                        .colors(Arrays.asList(0xbd8334, 0xA865C9, 0xb48def))
                         .setSpeedBetween(0f, 30f)
                         .position(new Position.Relative(0.5, 0.3))
                         .build()

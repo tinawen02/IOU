@@ -145,7 +145,7 @@ public class EvenSettlementActivity extends AppCompatActivity {
                 new PartyFactory(emitterConfig)
                         .spread(360)
                         .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
-                        .colors(Arrays.asList(0xF7E0FF, 0xA865C9, 0xff8c00, 0xfed8b1))
+                        .colors(Arrays.asList(0xbd8334, 0xA865C9, 0xb48def))
                         .setSpeedBetween(0f, 30f)
                         .position(new Position.Relative(0.5, 0.3))
                         .build()
